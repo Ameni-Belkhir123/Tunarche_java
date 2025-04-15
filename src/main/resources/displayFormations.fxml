@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="TunArche.controllers.FormationDetailsController" prefWidth="600" prefHeight="800">
+    <VBox alignment="TOP_CENTER" spacing="20" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+
+        <Label text="Détails De La Formation" style="-fx-font-size: 28px; -fx-font-weight: bold;" />
+
+        <VBox spacing="10" style="-fx-background-color: #f9f1e6; -fx-padding: 20; -fx-background-radius: 10;">
+            <Label fx:id="nomFormationLabel" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #0055cc;" />
+            <Label fx:id="descriptionLabel" />
+
+            <HBox spacing="10">
+                <Label text="Début :" />
+                <Label fx:id="dateDebutLabel" />
+            </HBox>
+            <HBox spacing="10">
+                <Label text="Fin :" />
+                <Label fx:id="dateFinLabel" />
+            </HBox>
+            <HBox spacing="10">
+                <Label text="Places restantes :" />
+                <Label fx:id="placesRestantesLabel" />
+            </HBox>
+
+            <HBox spacing="20">
+                <Button fx:id="participerBtn" text="PARTICIPER" onAction="#handleParticiper" style="-fx-background-color: #ff7f50; -fx-text-fill: white;" />
+                <Button fx:id="accederform" text="FORMATION TERMINÉE" disable="true" style="-fx-background-color: #db5a6b; -fx-text-fill: white;" />
+            </HBox>
+
+            <!-- Section Évaluation -->
+            <VBox spacing="10" alignment="CENTER">
+                <Label text="Laissez Un Commentaire Et Une Évaluation :" style="-fx-font-weight: bold;" />
+                <HBox spacing="5" alignment="CENTER">
+                    <ToggleButton fx:id="star1" onAction="#handleStar"/>
+                    <ToggleButton fx:id="star2" onAction="#handleStar"/>
+                    <ToggleButton fx:id="star3" onAction="#handleStar"/>
+                    <ToggleButton fx:id="star4" onAction="#handleStar"/>
+                    <ToggleButton fx:id="star5" onAction="#handleStar"/>
+                </HBox>
+
+                <TextArea fx:id="commentaireField" prefHeight="100" prefWidth="400"/>
+                <HBox spacing="10" alignment="CENTER">
+                    <Button fx:id="emojiBtn" text="😊" onAction="#openEmojiPicker"/>
+                    <Button text="ENVOYER" onAction="#handleEnvoyer" style="-fx-background-color: #c48f59; -fx-text-fill: white;" />
+                </HBox>
+
+                <!-- Liste des commentaires récents -->
+                <Label text="Commentaires Récents :" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+                <VBox fx:id="commentairesVBox" spacing="10"/>
+            </VBox>
+        </VBox>
+    </VBox>
+</AnchorPane>

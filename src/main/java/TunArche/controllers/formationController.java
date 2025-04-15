@@ -1,0 +1,412 @@
+package TunArche.controllers;
+import java.net.URL;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+import java.util.ResourceBundle;
+
+import TunArche.entities.Evaluation;
+import TunArche.services.EvaluationImpl;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
+
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import TunArche.entities.Formation;
+import TunArche.services.FormationImpl;
+
+import java.io.File;
+import java.util.regex.Pattern;
+
+
+import javafx.scene.control.*;
+
+
+
+public class formationController {
+
+    @FXML private ResourceBundle resources;
+    @FXML private URL location;
+
+    // Form fields
+    @FXML private DatePicker datedebid;
+    @FXML private DatePicker datefinid;
+    @FXML private TextArea descriptionid;
+    @FXML private TextField imgnamesho;
+    @FXML private TextField nbrplacesid;
+    @FXML private Button imgselect;
+    @FXML private TextField linkid;
+    @FXML private TextField titreid;
+
+    // Buttons
+    @FXML private Button btnUpdate;
+    @FXML private Button btnDelete;
+
+    // Table components
+    @FXML private TableView<Formation> tableFormations;
+    @FXML private TableColumn<Formation, Integer> colId;
+    @FXML private TableColumn<Formation, String> colTitre;
+    @FXML private TableColumn<Formation, Date> colDateDebut;
+    @FXML private TableColumn<Formation, Date> colDateFin;
+    @FXML private TableColumn<Formation, Integer> colPlaces;
+    @FXML private TableColumn<Formation, String> colImage;
+
+    private File selectedImageFile;
+    private Formation selectedFormation;
+    private FormationImpl formationImpl = new FormationImpl();
+    private EvaluationImpl evaluationImpl = new EvaluationImpl();
+    private ObservableList<Formation> formationsList = FXCollections.observableArrayList();
+
+    @FXML
+    void initialize() {
+        // Initialize table columns
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colTitre.setCellValueFactory(new PropertyValueFactory<>("titre"));
+        colDateDebut.setCellValueFactory(new PropertyValueFactory<>("datedebut"));
+        colDateFin.setCellValueFactory(new PropertyValueFactory<>("datefin"));
+        colPlaces.setCellValueFactory(new PropertyValueFactory<>("nbrplaces"));
+        colImage.setCellValueFactory(new PropertyValueFactory<>("image_name"));
+
+        // Load data into table
+        loadFormationsData();
+
+        // Add listener for table selection
+        tableFormations.getSelectionModel().selectedItemProperty().addListener(
+                (obs, oldSelection, newSelection) -> {
+                    if (newSelection != null) {
+                        selectedFormation = newSelection;
+                        btnUpdate.setDisable(false);
+                        btnDelete.setDisable(false);
+                        populateFormFields(selectedFormation);
+                    } else {
+                        selectedFormation = null;
+                        btnUpdate.setDisable(true);
+                        btnDelete.setDisable(true);
+                    }
+                }
+        );
+    }
+
+    private void loadFormationsData() {
+        formationsList.clear();
+        formationsList.addAll(formationImpl.showAll());
+        tableFormations.setItems(formationsList);
+    }
+
+    private void populateFormFields(Formation formation) {
+        titreid.setText(formation.getTitre());
+        descriptionid.setText(formation.getDescription());
+        if (formation.getDatedebut() != null) {
+            datedebid.setValue(formation.getDatedebut().toInstant()
+                    .atZone(ZoneId.systemDefault()).toLocalDate());
+        }
+
+        if (formation.getDatefin() != null) {
+            datefinid.setValue(formation.getDatefin().toInstant()
+                    .atZone(ZoneId.systemDefault()).toLocalDate());
+        }
+        linkid.setText(formation.getLink());
+        nbrplacesid.setText(String.valueOf(formation.getNbrplaces()));
+        imgnamesho.setText(formation.getImage_name());
+    }
+
+    @FXML
+    void saveFormation(ActionEvent event) {
+        if (!validateInputs()) {
+            return;
+        }
+
+        try {
+            // Création de l'objet Formation pour vérification
+            Formation nouvelleFormation = new Formation();
+            nouvelleFormation.setTitre(titreid.getText().trim());
+            nouvelleFormation.setDescription(descriptionid.getText().trim());
+            nouvelleFormation.setDatedebut(Date.from(datedebid.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+            nouvelleFormation.setDatefin(Date.from(datefinid.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+            nouvelleFormation.setLink(linkid.getText().trim());
+            nouvelleFormation.setNbrplaces(Integer.parseInt(nbrplacesid.getText().trim()));
+
+            // Vérification des doublons
+            if (formationExists(nouvelleFormation)) {
+                showAlert(Alert.AlertType.WARNING, "Doublon détecté",
+                        "Une formation identique existe déjà avec :\n" +
+                                "- Même titre\n" +
+                                "- Même description\n" +
+                                "- Mêmes dates\n" +
+                                "- Même lien");
+                return;
+            }
+
+            // Si pas de doublon, procéder à l'ajout
+            nouvelleFormation.setImage_name(selectedImageFile.getName());
+            nouvelleFormation.setImage_size((int) selectedImageFile.length());
+            nouvelleFormation.setUpdated_at(new Date());
+
+            formationImpl.create(nouvelleFormation);
+
+            showAlert(Alert.AlertType.INFORMATION, "✅ Succès", "Formation ajoutée avec succès !");
+            resetForm();
+            loadFormationsData();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "❌ Erreur", "Erreur lors de l'ajout : " + e.getMessage());
+        }
+    }
+
+    private boolean formationExists(Formation formation) {
+        for (Formation f : formationImpl.showAll()) {
+            if (f.getTitre().equalsIgnoreCase(formation.getTitre()) &&
+                    f.getDescription().equalsIgnoreCase(formation.getDescription()) &&
+                    f.getDatedebut().equals(formation.getDatedebut()) &&
+                    f.getDatefin().equals(formation.getDatefin()) &&
+                    f.getLink().equalsIgnoreCase(formation.getLink())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @FXML
+    void handleUpdate(ActionEvent event) {
+        if (selectedFormation == null) {
+            showAlert(Alert.AlertType.WARNING, "Aucune sélection", "Veuillez sélectionner une formation à modifier.");
+            return;
+        }
+
+        if (!validateInputs()) {
+            return;
+        }
+
+        try {
+            // Conversion des dates à partir des DatePicker (déjà bien gérée)
+            Date newDebut = Date.from(datedebid.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+            Date newFin = Date.from(datefinid.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+            // Vérification des doublons (en excluant la formation en cours)
+            Formation updatedFormation = new Formation();
+            updatedFormation.setTitre(titreid.getText().trim());
+            updatedFormation.setDescription(descriptionid.getText().trim());
+            updatedFormation.setDatedebut(newDebut);
+            updatedFormation.setDatefin(newFin);
+            updatedFormation.setLink(linkid.getText().trim());
+
+            for (Formation f : formationImpl.showAll()) {
+                if (f.getId() != selectedFormation.getId() &&
+                        f.getTitre().equalsIgnoreCase(updatedFormation.getTitre()) &&
+                        f.getDescription().equalsIgnoreCase(updatedFormation.getDescription()) &&
+                        f.getDatedebut().equals(updatedFormation.getDatedebut()) &&
+                        f.getDatefin().equals(updatedFormation.getDatefin()) &&
+                        f.getLink().equalsIgnoreCase(updatedFormation.getLink())) {
+
+                    showAlert(Alert.AlertType.WARNING, "Doublon détecté",
+                            "Une formation identique existe déjà avec ces informations.");
+                    return;
+                }
+            }
+
+            // Si confirmé par l'utilisateur
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation de modification");
+            alert.setHeaderText("Modifier la formation");
+            alert.setContentText("Êtes-vous sûr de vouloir modifier cette formation ?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                // Mettre à jour la formation sélectionnée
+                selectedFormation.setTitre(updatedFormation.getTitre());
+                selectedFormation.setDescription(updatedFormation.getDescription());
+                selectedFormation.setDatedebut(newDebut);
+                selectedFormation.setDatefin(newFin);
+                selectedFormation.setLink(updatedFormation.getLink());
+                selectedFormation.setNbrplaces(Integer.parseInt(nbrplacesid.getText().trim()));
+
+                if (selectedImageFile != null) {
+                    selectedFormation.setImage_name(selectedImageFile.getName());
+                    selectedFormation.setImage_size((int) selectedImageFile.length());
+                }
+
+                selectedFormation.setUpdated_at(new Date());
+
+                formationImpl.update(selectedFormation);
+
+                showAlert(Alert.AlertType.INFORMATION, "✅ Succès", "Formation modifiée avec succès !");
+                resetForm();
+                loadFormationsData();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "❌ Erreur", "Erreur lors de la modification : " + e.getMessage());
+        }
+    }
+
+    @FXML
+    void handleDelete(ActionEvent event) {
+        if (selectedFormation == null) {
+            showAlert(Alert.AlertType.WARNING, "Aucune sélection", "Veuillez sélectionner une formation à supprimer.");
+            return;
+        }
+
+        // Vérifier si la formation a des commentaires
+        List<Evaluation> evaluations = evaluationImpl.showByFormation(selectedFormation.getId());
+        boolean hasComments = !evaluations.isEmpty();
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation de suppression");
+        alert.setHeaderText("Supprimer la formation");
+
+        if (hasComments) {
+            alert.setContentText("⚠ Attention ⚠\n\n" +
+                    "Cette formation contient " + evaluations.size() + " commentaire(s).\n\n" +
+                    "En confirmant, vous supprimerez également :\n" +
+                    "- Tous les commentaires associés\n" +
+                    "- Toutes les notes d'évaluation\n\n" +
+                    "Voulez-vous vraiment continuer ?");
+        } else {
+            alert.setContentText("Êtes-vous sûr de vouloir supprimer cette formation ?\n\n" +
+                    "Titre: " + selectedFormation.getTitre());
+        }
+
+        ButtonType buttonTypeYes = new ButtonType("Oui, supprimer", ButtonBar.ButtonData.YES);
+        ButtonType buttonTypeNo = new ButtonType("Non, annuler", ButtonBar.ButtonData.NO);
+        alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == buttonTypeYes) {
+            try {
+                if (hasComments) {
+                    // Supprimer d'abord les commentaires
+                    evaluationImpl.deleteByFormation(selectedFormation.getId());
+                }
+                // Puis supprimer la formation
+                formationImpl.delete(selectedFormation.getId());
+
+                showAlert(Alert.AlertType.INFORMATION, "✅ Succès",
+                        hasComments ? "Formation et ses commentaires supprimés avec succès !"
+                                : "Formation supprimée avec succès !");
+                resetForm();
+                loadFormationsData();
+            } catch (Exception e) {
+                e.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "❌ Erreur",
+                        "Erreur lors de la suppression : " + e.getMessage());
+            }
+        }
+    }
+
+    @FXML
+    void selectImage(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Sélectionner une image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg")
+        );
+        File file = fileChooser.showOpenDialog(((Button)event.getSource()).getScene().getWindow());
+        if (file != null) {
+            selectedImageFile = file;
+            imgnamesho.setText(file.getName());
+        }
+    }
+
+    @FXML
+    void resetForm(ActionEvent event) {
+        resetForm();
+    }
+
+    private boolean validateInputs() {
+        // Validation des champs obligatoires
+        if (titreid.getText().trim().isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Champ requis", "Le titre est obligatoire.");
+            return false;
+        }
+        if (descriptionid.getText().trim().isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Champ requis", "La description est obligatoire.");
+            return false;
+        }
+        if (datedebid.getValue() == null) {
+            showAlert(Alert.AlertType.WARNING, "Champ requis", "La date de début est obligatoire.");
+            return false;
+        }
+        if (datefinid.getValue() == null) {
+            showAlert(Alert.AlertType.WARNING, "Champ requis", "La date de fin est obligatoire.");
+            return false;
+        }
+        if (linkid.getText().trim().isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Champ requis", "Le lien est obligatoire.");
+            return false;
+        }
+        if (nbrplacesid.getText().trim().isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Champ requis", "Le nombre de places est obligatoire.");
+            return false;
+        }
+
+        // Validation des dates
+        if (datedebid.getValue().isAfter(datefinid.getValue())) {
+            showAlert(Alert.AlertType.WARNING, "Dates incorrectes", "La date de début doit être avant la date de fin.");
+            return false;
+        }
+
+        // Validation du lien URL
+        if (!isValidURL(linkid.getText().trim())) {
+            showAlert(Alert.AlertType.WARNING, "Lien invalide", "Veuillez entrer un lien valide (commençant par http:// ou https://).");
+            return false;
+        }
+
+        // Validation du nombre de places
+        try {
+            int nbrPlaces = Integer.parseInt(nbrplacesid.getText().trim());
+            if (nbrPlaces <= 0) {
+                showAlert(Alert.AlertType.WARNING, "Valeur invalide", "Le nombre de places doit être un entier positif.");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            showAlert(Alert.AlertType.WARNING, "Format invalide", "Le nombre de places doit être un nombre entier.");
+            return false;
+        }
+
+        // Validation de l'image (sauf pour modification sans changement d'image)
+        if (selectedImageFile == null && selectedFormation == null) {
+            showAlert(Alert.AlertType.WARNING, "Image manquante", "Veuillez sélectionner une image.");
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean isValidURL(String url) {
+        String regex = "^(https?://).+";
+        return Pattern.matches(regex, url);
+    }
+
+    private void showAlert(Alert.AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    private void resetForm() {
+        titreid.clear();
+        descriptionid.clear();
+        datedebid.setValue(null);
+        datefinid.setValue(null);
+        linkid.clear();
+        nbrplacesid.clear();
+        imgnamesho.clear();
+        selectedImageFile = null;
+        selectedFormation = null;
+        tableFormations.getSelectionModel().clearSelection();
+        btnUpdate.setDisable(true);
+        btnDelete.setDisable(true);
+    }
+
+}
