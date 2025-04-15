@@ -1,5 +1,6 @@
 package TunArche.entities;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,17 +9,17 @@ public class Formation<F> {
     private int id ;
     private String titre ;
     private String description ;
-    private Date datedebut ;
-    private Date datefin ;
+    private LocalDate datedebut ;
+    private LocalDate datefin ;
     private int nbrplaces ;
     private String link ;
     private List<Evaluation> evaluations = new ArrayList<>();
     private String image_name;
     private int image_size ;
-    private Date updated_at ;
+    private LocalDate updated_at ;
     public Formation() {}
 
-    public Formation(int id, String titre, String description, Date datedebut, Date datefin, int nbrplaces, String link, List<Evaluation> evaluations, String image_name, int image_size, Date updated_at) {
+    public Formation(int id, String titre, String description, LocalDate datedebut, LocalDate datefin, int nbrplaces, String link, List<Evaluation> evaluations, String image_name, int image_size, LocalDate updated_at) {
         this.id = id;
         this.titre = titre;
         this.description = description;
@@ -32,7 +33,7 @@ public class Formation<F> {
         this.updated_at = updated_at;
     }
 
-    public Formation(int id, String titre, String description, Date datedebut, Date datefin, int nbrplaces, String link, String image_name, int image_size, Date updated_at) {
+    public Formation(int id, String titre, String description, LocalDate datedebut, LocalDate datefin, int nbrplaces, String link, String image_name, int image_size, LocalDate updated_at) {
         this.id = id;
         this.titre = titre;
         this.description = description;
@@ -70,19 +71,19 @@ public class Formation<F> {
         this.description = description;
     }
 
-    public Date getDatedebut() {
+    public LocalDate getDatedebut() {
         return datedebut;
     }
 
-    public void setDatedebut(Date datedebut) {
+    public void setDatedebut(LocalDate datedebut) {
         this.datedebut = datedebut;
     }
 
-    public Date getDatefin() {
+    public LocalDate getDatefin() {
         return datefin;
     }
 
-    public void setDatefin(Date datefin) {
+    public void setDatefin(LocalDate datefin) {
         this.datefin = datefin;
     }
 
@@ -126,11 +127,11 @@ public class Formation<F> {
         this.image_size = image_size;
     }
 
-    public Date getUpdated_at() {
+    public LocalDate getUpdated_at() {
         return updated_at;
     }
 
-    public void setUpdated_at(Date updated_at) {
+    public void setUpdated_at(LocalDate updated_at) {
         this.updated_at = updated_at;
     }
 

@@ -30,6 +30,8 @@
             <Button style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="📅 Événements" />
             <Button style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎫 Billets" />
             <Button style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-pref-width: 150;" text="🚪 Déconnexion" />
+            <Button fx:id="btnFront" onAction="#goToFront" style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-pref-width: 150;" text="🌐 Front" />
+
         </VBox>
     </left>
 

@@ -5,8 +5,11 @@ import TunArche.entities.Formation;
 import TunArche.interfaces.IFormation;
 import TunArche.tools.MyConnection;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,22 +18,18 @@ public class FormationImpl implements IFormation<Formation> {
 
     @Override
     public void create(Formation formation) {
-        if (!formation.getDatedebut().before(formation.getDatefin())) {
-            System.out.println("❌ La date de début doit être avant la date de fin.");
-            return;
-        }
         try {
             String requete = "INSERT INTO formation (titre, description, datedebut, datefin, nbrplaces, link, image_name, image_size, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement st = MyConnection.getInstance().getCnx().prepareStatement(requete);
             st.setString(1, formation.getTitre());
             st.setString(2, formation.getDescription());
-            st.setDate(3, new java.sql.Date(formation.getDatedebut().getTime()));
-            st.setDate(4, new java.sql.Date(formation.getDatefin().getTime()));
+            st.setDate(3, Date.valueOf(formation.getDatedebut())); // LocalDate -> java.sql.Date
+            st.setDate(4, Date.valueOf(formation.getDatefin()));
             st.setInt(5, formation.getNbrplaces());
             st.setString(6, formation.getLink());
             st.setString(7, formation.getImage_name());
             st.setInt(8, formation.getImage_size());
-            st.setDate(9, new java.sql.Date(formation.getUpdated_at().getTime()));
+            st.setDate(9, Date.valueOf(formation.getUpdated_at()));
             st.executeUpdate();
             System.out.println("Formation ajoutée avec image !");
         } catch (Exception e) {
@@ -45,13 +44,13 @@ public class FormationImpl implements IFormation<Formation> {
             PreparedStatement st = MyConnection.getInstance().getCnx().prepareStatement(requete);
             st.setString(1, formation.getTitre());
             st.setString(2, formation.getDescription());
-            st.setDate(3, new java.sql.Date(formation.getDatedebut().getTime()));
-            st.setDate(4, new java.sql.Date(formation.getDatefin().getTime()));
+            st.setDate(3, Date.valueOf(formation.getDatedebut()));
+            st.setDate(4, Date.valueOf(formation.getDatefin()));
             st.setInt(5, formation.getNbrplaces());
             st.setString(6, formation.getLink());
             st.setString(7, formation.getImage_name());
             st.setInt(8, formation.getImage_size());
-            st.setDate(9, new java.sql.Date(formation.getUpdated_at().getTime()));
+            st.setDate(9, Date.valueOf(formation.getUpdated_at()));
             st.setInt(10, formation.getId());
             st.executeUpdate();
             System.out.println("Formation modifiée !");
@@ -75,62 +74,84 @@ public class FormationImpl implements IFormation<Formation> {
 
     @Override
     public Formation findById(int id) {
-        try {
             String requete = "SELECT * FROM formation WHERE id=?";
-            PreparedStatement st = MyConnection.getInstance().getCnx().prepareStatement(requete);
-            st.setInt(1, id);
-            ResultSet rs = st.executeQuery();
-            if (rs.next()) {
-                return new Formation(
-                        rs.getInt("id"),
-                        rs.getString("titre"),
-                        rs.getString("description"),
-                        rs.getDate("datedebut"),
-                        rs.getDate("datefin"),
-                        rs.getInt("nbrplaces"),
-                        rs.getString("link"),
-                        rs.getString("image_name"),
-                        rs.getInt("image_size"),
-                        rs.getDate("updated_at")
-                );
-            }
-        } catch (Exception e) {
-            System.out.println("Erreur findById : " + e.getMessage());
-        }
-        return null;
-    }
 
+            try (PreparedStatement st = MyConnection.getInstance().getCnx().prepareStatement(requete)) {
+                st.setInt(1, id);
+
+                try (ResultSet rs = st.executeQuery()) {
+                    if (rs.next()) {
+                        // Gestion des dates potentiellement nulles
+                        LocalDate dateDebut = rs.getDate("datedebut") != null ?
+                                rs.getDate("datedebut").toLocalDate() : null;
+                        LocalDate dateFin = rs.getDate("datefin") != null ?
+                                rs.getDate("datefin").toLocalDate() : null;
+                        LocalDate updatedAt = rs.getDate("updated_at") != null ?
+                                rs.getDate("updated_at").toLocalDate() : null;
+
+                        return new Formation(
+                                rs.getInt("id"),
+                                rs.getString("titre"),
+                                rs.getString("description"),
+                                dateDebut,
+                                dateFin,
+                                rs.getInt("nbrplaces"),
+                                rs.getString("link"),
+                                rs.getString("image_name"),
+                                rs.getInt("image_size"),
+                                updatedAt
+                        );
+                    }
+                }
+            } catch (SQLException e) {
+                System.err.println("Erreur findById (SQL): " + e.getMessage());
+            } catch (Exception e) {
+                System.err.println("Erreur findById (générale): " + e.getMessage());
+            }
+            return null;
+         }
     @Override
     public List<Formation> showAll() {
         List<Formation> formations = new ArrayList<>();
-        EvaluationImpl evaluationImpl = new EvaluationImpl(); // pour récupérer les évaluations
+        String requete = "SELECT * FROM formation";
 
-        try {
-            String requete = "SELECT * FROM formation";
-            PreparedStatement st = MyConnection.getInstance().getCnx().prepareStatement(requete);
-            ResultSet rs = st.executeQuery();
+        try (PreparedStatement st = MyConnection.getInstance().getCnx().prepareStatement(requete);
+             ResultSet rs = st.executeQuery()) {
+
+            EvaluationImpl evaluationImpl = new EvaluationImpl();
+
             while (rs.next()) {
+                // Gestion des dates potentiellement nulles
+                LocalDate dateDebut = rs.getDate("datedebut") != null ?
+                        rs.getDate("datedebut").toLocalDate() : null;
+                LocalDate dateFin = rs.getDate("datefin") != null ?
+                        rs.getDate("datefin").toLocalDate() : null;
+                LocalDate updatedAt = rs.getDate("updated_at") != null ?
+                        rs.getDate("updated_at").toLocalDate() : null;
+
                 int id = rs.getInt("id");
                 List<Evaluation> evaluations = evaluationImpl.showByFormation(id);
+
                 Formation f = new Formation(
                         id,
                         rs.getString("titre"),
                         rs.getString("description"),
-                        rs.getDate("datedebut"),
-                        rs.getDate("datefin"),
+                        dateDebut,
+                        dateFin,
                         rs.getInt("nbrplaces"),
                         rs.getString("link"),
                         evaluations,
                         rs.getString("image_name"),
                         rs.getInt("image_size"),
-                        rs.getDate("updated_at")
+                        updatedAt
                 );
                 formations.add(f);
             }
+        } catch (SQLException e) {
+            System.err.println("Erreur showAll (SQL): " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("Erreur : " + e.getMessage());
+            System.err.println("Erreur showAll (générale): " + e.getMessage());
         }
 
-        return formations;
-    }
+        return formations;}
 }

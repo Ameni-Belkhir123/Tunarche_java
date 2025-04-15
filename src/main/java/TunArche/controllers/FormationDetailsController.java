@@ -39,21 +39,14 @@ public class FormationDetailsController {
             "merde", "con", "stupid", "fuck", "shit", "putain", "idiot", "dumb", "nul"
     );
 
+
+
     public void setFormation(Formation formation) {
         this.formation = formation;
 
         // Conversion Date vers LocalDate en toute sécurité
-        Date debut = formation.getDatedebut();
-        Date fin = formation.getDatefin();
-
-        if (debut != null && debut instanceof java.sql.Date) {
-            this.dateDebut = ((java.sql.Date) debut).toLocalDate();
-        }
-
-        if (fin != null && fin instanceof java.sql.Date) {
-            this.dateFin = ((java.sql.Date) fin).toLocalDate();
-        }
-
+        this.dateDebut = formation.getDatedebut(); // LocalDate directement
+        this.dateFin = formation.getDatefin();     // LocalDate directement
         this.placesRestantes = formation.getNbrplaces();
         this.formationId = formation.getId();
 
@@ -216,4 +209,18 @@ public class FormationDetailsController {
         emojiDialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
         emojiDialog.showAndWait();
     }
+    @FXML
+    void handleAccederFormation() {
+        if (formation != null && formation.getLink() != null && !formation.getLink().isEmpty()) {
+            try {
+                java.awt.Desktop.getDesktop().browse(new java.net.URI(formation.getLink()));
+            } catch (Exception e) {
+                e.printStackTrace();
+                showWarning("Impossible d'ouvrir le lien.");
+            }
+        } else {
+            showWarning("Aucun lien disponible pour cette formation.");
+        }
+    }
+
 }

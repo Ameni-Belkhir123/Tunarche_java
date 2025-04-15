@@ -1,5 +1,7 @@
 package TunArche.controllers;
+import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
@@ -12,6 +14,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -28,7 +34,7 @@ import java.util.regex.Pattern;
 
 
 import javafx.scene.control.*;
-
+import javafx.stage.Stage;
 
 
 public class formationController {
@@ -54,8 +60,8 @@ public class formationController {
     @FXML private TableView<Formation> tableFormations;
     @FXML private TableColumn<Formation, Integer> colId;
     @FXML private TableColumn<Formation, String> colTitre;
-    @FXML private TableColumn<Formation, Date> colDateDebut;
-    @FXML private TableColumn<Formation, Date> colDateFin;
+    @FXML private TableColumn<Formation, LocalDate> colDateDebut; // Changé en LocalDate
+    @FXML private TableColumn<Formation, LocalDate> colDateFin;   // Changé en LocalDate
     @FXML private TableColumn<Formation, Integer> colPlaces;
     @FXML private TableColumn<Formation, String> colImage;
 
@@ -70,8 +76,8 @@ public class formationController {
         // Initialize table columns
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colTitre.setCellValueFactory(new PropertyValueFactory<>("titre"));
-        colDateDebut.setCellValueFactory(new PropertyValueFactory<>("datedebut"));
-        colDateFin.setCellValueFactory(new PropertyValueFactory<>("datefin"));
+        colDateDebut.setCellValueFactory(new PropertyValueFactory<>("datedebut")); // Utilise LocalDate directement
+        colDateFin.setCellValueFactory(new PropertyValueFactory<>("datefin"));     // Utilise LocalDate directement
         colPlaces.setCellValueFactory(new PropertyValueFactory<>("nbrplaces"));
         colImage.setCellValueFactory(new PropertyValueFactory<>("image_name"));
 
@@ -104,15 +110,11 @@ public class formationController {
     private void populateFormFields(Formation formation) {
         titreid.setText(formation.getTitre());
         descriptionid.setText(formation.getDescription());
-        if (formation.getDatedebut() != null) {
-            datedebid.setValue(formation.getDatedebut().toInstant()
-                    .atZone(ZoneId.systemDefault()).toLocalDate());
-        }
 
-        if (formation.getDatefin() != null) {
-            datefinid.setValue(formation.getDatefin().toInstant()
-                    .atZone(ZoneId.systemDefault()).toLocalDate());
-        }
+        // Gestion des dates nulles
+        datedebid.setValue(formation.getDatedebut() != null ? formation.getDatedebut() : null);
+        datefinid.setValue(formation.getDatefin() != null ? formation.getDatefin() : null);
+
         linkid.setText(formation.getLink());
         nbrplacesid.setText(String.valueOf(formation.getNbrplaces()));
         imgnamesho.setText(formation.getImage_name());
@@ -129,8 +131,8 @@ public class formationController {
             Formation nouvelleFormation = new Formation();
             nouvelleFormation.setTitre(titreid.getText().trim());
             nouvelleFormation.setDescription(descriptionid.getText().trim());
-            nouvelleFormation.setDatedebut(Date.from(datedebid.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-            nouvelleFormation.setDatefin(Date.from(datefinid.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+            nouvelleFormation.setDatedebut(datedebid.getValue()); // LocalDate directement
+            nouvelleFormation.setDatefin(datefinid.getValue());   // LocalDate directement
             nouvelleFormation.setLink(linkid.getText().trim());
             nouvelleFormation.setNbrplaces(Integer.parseInt(nbrplacesid.getText().trim()));
 
@@ -148,7 +150,7 @@ public class formationController {
             // Si pas de doublon, procéder à l'ajout
             nouvelleFormation.setImage_name(selectedImageFile.getName());
             nouvelleFormation.setImage_size((int) selectedImageFile.length());
-            nouvelleFormation.setUpdated_at(new Date());
+            nouvelleFormation.setUpdated_at(LocalDate.now()); // LocalDate.now() au lieu de new Date()
 
             formationImpl.create(nouvelleFormation);
 
@@ -188,8 +190,10 @@ public class formationController {
 
         try {
             // Conversion des dates à partir des DatePicker (déjà bien gérée)
-            Date newDebut = Date.from(datedebid.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-            Date newFin = Date.from(datefinid.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+            // Utilisation directe de LocalDate
+            LocalDate newDebut = datedebid.getValue();
+            LocalDate newFin = datefinid.getValue();
+
 
             // Vérification des doublons (en excluant la formation en cours)
             Formation updatedFormation = new Formation();
@@ -234,7 +238,7 @@ public class formationController {
                     selectedFormation.setImage_size((int) selectedImageFile.length());
                 }
 
-                selectedFormation.setUpdated_at(new Date());
+                selectedFormation.setUpdated_at(LocalDate.now()); // LocalDate.now()
 
                 formationImpl.update(selectedFormation);
 
@@ -408,5 +412,26 @@ public class formationController {
         btnUpdate.setDisable(true);
         btnDelete.setDisable(true);
     }
+
+    @FXML
+    private void goToFront(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/formation.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Formations - Vue Front");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            // Fermer l'ancienne fenêtre (optionnel)
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

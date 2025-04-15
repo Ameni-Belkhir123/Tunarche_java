@@ -28,7 +28,9 @@
 
             <HBox spacing="20">
                 <Button fx:id="participerBtn" text="PARTICIPER" onAction="#handleParticiper" style="-fx-background-color: #ff7f50; -fx-text-fill: white;" />
-                <Button fx:id="accederform" text="FORMATION TERMINÉE" disable="true" style="-fx-background-color: #db5a6b; -fx-text-fill: white;" />
+                <Button fx:id="accederform" text="Accéder à la formation" disable="true"
+                        onAction="#handleAccederFormation"
+                        style="-fx-background-color: #db5a6b; -fx-text-fill: white;" />
             </HBox>
 
             <!-- Section Évaluation -->
