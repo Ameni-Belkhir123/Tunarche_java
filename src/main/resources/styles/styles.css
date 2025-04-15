@@ -1,0 +1,76 @@
+/* Définition de l'animation du fond */
+@keyframes gradientAnimation {
+    0% {
+        -fx-background-color: linear-gradient(to right, #D2691E, #8B4513); /* Couleur Camel à Terre */
+    }
+    50% {
+        -fx-background-color: linear-gradient(to right, #F4A460, #6E4B3A); /* Variante plus claire de camel à terre */
+    }
+    100% {
+        -fx-background-color: linear-gradient(to right, #D2691E, #8B4513); /* Retour à la couleur initiale */
+    }
+}
+
+/* Style de l'élément racine, applique l'animation du fond */
+.root {
+    -fx-padding: 20px;
+    -fx-background-color: linear-gradient(to right, #D2691E, #8B4513); /* Dégradé initial Camel à Terre */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 10px;
+    animation: gradientAnimation 5s ease-in-out infinite; /* Animation continue */
+}
+
+/* Styles pour les autres éléments de l'interface */
+.label {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.text-field {
+    -fx-padding: 10px 20px;
+    -fx-background-color: #F4A460; /* Couleur camel plus claire */
+    -fx-border-radius: 5px;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-border-color: #8B4513; /* Couleur terre pour les bordures */
+}
+
+.button {
+    -fx-background-color: #D2691E; /* Couleur camel */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #8B4513;
+    -fx-border-width: 2px;
+}
+
+.button:hover {
+    -fx-background-color: #F4A460; /* Couleur camel clair au survol */
+    -fx-border-color: #6E4B3A; /* Couleur terre plus claire au survol */
+}
+
+/* Conteneur pour les éléments (par exemple FlowPane) */
+.flow-pane {
+    -fx-padding: 10px;
+    -fx-background-color: transparent;
+}
+
+.vbox {
+    -fx-spacing: 20px;
+    -fx-alignment: center;
+    -fx-padding: 20px;
+}
+
+/* Conteneur général */
+.border-pane {
+    -fx-background-color: transparent;
+    -fx-border-radius: 10px;
+}
+
+/* Ajout d'un effet d'ombre pour donner plus de profondeur à l'interface */
+.root, .button, .text-field {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 0, 0);
+}
