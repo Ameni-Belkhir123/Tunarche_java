@@ -1,37 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="600" prefWidth="1000" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx" fx:controller="TunArche.controllers.formationController">
+<BorderPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="TunArche.controllers.formationController">
 
+    <!-- ✅ Barre du haut -->
     <top>
-        <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-padding: 20; -fx-text-fill: #2c3e50;" text="🎓 Gestion des Formations" BorderPane.alignment="CENTER" />
+        <Label text="🎓 Gestion des Formations" BorderPane.alignment="CENTER"
+               style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-padding: 20; -fx-text-fill: #2c3e50;"/>
     </top>
 
-    <!-- ✅ Barre latérale -->
+    <!-- ✅ Barre latérale gauche -->
     <left>
-        <VBox spacing="15" style="-fx-background-color: #2c3e50; -fx-padding: 2;">
-            <Label style="-fx-font-size: 18px; -fx-text-fill: white; -fx-font-weight: bold;" text="🏠 Menu" />
-
-            <Button style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="👥 Utilisateurs" />
-            <Button style="-fx-background-color: #1abc9c; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Formations" />
-            <Button style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="📅 Événements" />
-            <Button style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎫 Billets" />
-            <Button style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-pref-width: 150;" text="🚪 Déconnexion" />
-            <Button fx:id="btnFront" onAction="#goToFront" style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-pref-width: 150;" text="🌐 Front" />
-
+        <VBox spacing="15" style="-fx-background-color: #2c3e50; -fx-padding: 10;">
+            <Label text="🏠 Menu" style="-fx-font-size: 18px; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            <Button text="👥 Utilisateurs" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;"/>
+            <Button text="🎓 Formations" style="-fx-background-color: #1abc9c; -fx-text-fill: white; -fx-pref-width: 150;"/>
+            <Button text="📅 Événements" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;"/>
+            <Button text="🎫 Billets" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;"/>
+            <Button text="🚪 Déconnexion" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-pref-width: 150;"/>
+            <Button fx:id="btnFront" text="🌐 Front" onAction="#goToFront"
+                    style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-pref-width: 150;"/>
         </VBox>
     </left>
 
@@ -39,67 +31,72 @@
     <center>
         <VBox spacing="15" style="-fx-padding: 20; -fx-background-color: #f9f9f9;">
             <GridPane hgap="10" vgap="10">
-                <Label text="Titre:" />
-                <TextField fx:id="titreid" prefHeight="26.0" prefWidth="189.0" promptText="Titre de la formation" GridPane.columnIndex="1" GridPane.columnSpan="3" />
+                <columnConstraints>
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                </rowConstraints>
 
-                <Label text="Description:" GridPane.rowIndex="1" />
-                <TextArea fx:id="descriptionid" prefRowCount="2" promptText="Description" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" />
-
-                <Label text="Date début:" GridPane.rowIndex="2" />
-                <DatePicker fx:id="datedebid" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-
-                <Label prefHeight="18.0" prefWidth="78.0" text="Date fin" GridPane.rowIndex="3" />
-                <DatePicker fx:id="datefinid" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-
-                <Label text="Lien:" GridPane.rowIndex="4" />
-                <TextField fx:id="linkid" promptText="https://" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="4" />
-
-                <Label text="Places:" GridPane.rowIndex="5" />
-                <TextField fx:id="nbrplacesid" promptText="Nombre de places" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-
-                <Label prefHeight="18.0" prefWidth="161.0" text="Image:" GridPane.rowIndex="6" />
-                <HBox spacing="5" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="6">
-                    <Button fx:id="imgselect" onAction="#selectImage" text="Sélectionner" />
-                    <TextField fx:id="imgnamesho" editable="false" prefWidth="200" style="-fx-background-color: #f0f0f0;" />
+                <Label text="Titre:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <HBox spacing="5" GridPane.columnIndex="1" GridPane.columnSpan="3">
+                    <TextField fx:id="titreid" prefHeight="26.0" prefWidth="189.0" promptText="Titre de la formation"/>
+                    <Button text="🧠 Générer Description" onAction="#generateDescription"
+                            style="-fx-background-color: #8e44ad; -fx-text-fill: white;"/>
                 </HBox>
-            <columnConstraints>
-               <ColumnConstraints />
-               <ColumnConstraints />
-               <ColumnConstraints />
-               <ColumnConstraints />
-            </columnConstraints>
-            <rowConstraints>
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-            </rowConstraints>
+                <Label text="Description:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextArea fx:id="descriptionid" promptText="Description" wrapText="true" prefRowCount="2"
+                          GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
+
+                <Label text="Date début:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <DatePicker fx:id="datedebid" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <Label text="Date fin:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <DatePicker fx:id="datefinid" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                <Label text="Lien:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <TextField fx:id="linkid" promptText="https://" GridPane.rowIndex="4" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
+
+                <Label text="Places:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                <TextField fx:id="nbrplacesid" promptText="Nombre de places" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+                <Label text="Image:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                <HBox spacing="5" GridPane.rowIndex="6" GridPane.columnIndex="1" GridPane.columnSpan="3">
+                    <Button fx:id="imgselect" text="Sélectionner" onAction="#selectImage"/>
+                    <TextField fx:id="imgnamesho" editable="false" prefWidth="200" style="-fx-background-color: #f0f0f0;"/>
+                </HBox>
             </GridPane>
 
             <HBox alignment="CENTER" spacing="10">
-                <Button onAction="#saveFormation" style="-fx-background-color: #2ecc71; -fx-text-fill: white;" text="Ajouter" />
-                <Button fx:id="btnUpdate" disable="true" onAction="#handleUpdate" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="Modifier" />
-                <Button fx:id="btnDelete" disable="true" onAction="#handleDelete" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Supprimer" />
+                <Button text="Ajouter" onAction="#saveFormation" style="-fx-background-color: #2ecc71; -fx-text-fill: white;"/>
+                <Button fx:id="btnUpdate" text="Modifier" disable="true" onAction="#handleUpdate" style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+                <Button fx:id="btnDelete" text="Supprimer" disable="true" onAction="#handleDelete" style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+                <Button text="✨ Exemple" onAction="#openChatbot" style="-fx-background-color: #9b59b6; -fx-text-fill: white;"/>
             </HBox>
         </VBox>
     </center>
 
-    <!-- ✅ Liste des formations (à droite) -->
+    <!-- ✅ Liste des formations -->
     <right>
         <VBox spacing="10" style="-fx-padding: 10; -fx-background-color: #ecf0f1;">
-            <Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="📋 Liste des Formations" />
-
+            <Label text="📋 Liste des Formations" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
             <TableView fx:id="tableFormations" prefHeight="500" prefWidth="450">
                 <columns>
-                    <TableColumn fx:id="colId" prefWidth="40" text="ID" />
-                    <TableColumn fx:id="colTitre" prefWidth="120" text="Titre" />
-                    <TableColumn fx:id="colDateDebut" prefWidth="80" text="Début" />
-                    <TableColumn fx:id="colDateFin" prefWidth="80" text="Fin" />
-                    <TableColumn fx:id="colPlaces" prefWidth="50" text="Places" />
-                    <TableColumn fx:id="colImage" prefWidth="80" text="Image" />
+                    <TableColumn fx:id="colId" text="ID" prefWidth="40"/>
+                    <TableColumn fx:id="colTitre" text="Titre" prefWidth="120"/>
+                    <TableColumn fx:id="colDateDebut" text="Début" prefWidth="80"/>
+                    <TableColumn fx:id="colDateFin" text="Fin" prefWidth="80"/>
+                    <TableColumn fx:id="colPlaces" text="Places" prefWidth="50"/>
+                    <TableColumn fx:id="colImage" text="Image" prefWidth="80"/>
                 </columns>
             </TableView>
         </VBox>

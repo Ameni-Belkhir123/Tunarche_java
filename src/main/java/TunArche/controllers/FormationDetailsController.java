@@ -4,6 +4,7 @@ package TunArche.controllers;
 import TunArche.entities.Evaluation;
 import TunArche.entities.Formation;
 import TunArche.services.EvaluationImpl;
+import TunArche.services.ProfanityCheckService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -122,7 +123,9 @@ public class FormationDetailsController {
             return;
         }
 
-        if (contientBadWord(commentaire)) {
+        // Utilisation de l'API ProfanityCheckService
+        ProfanityCheckService profanityCheckService = new ProfanityCheckService();
+        if (profanityCheckService.containsProfanity(commentaire)) {
             showWarning("Le commentaire contient des mots inappropriés !");
             return;
         }

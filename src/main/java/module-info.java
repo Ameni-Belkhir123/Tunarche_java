@@ -3,7 +3,7 @@ module com.example.tunarche {
     requires javafx.fxml;
     requires java.sql;
     requires java.desktop;
-    requires org.json;
+
 
     opens TunArche.test to javafx.graphics;
     opens TunArche.controllers to javafx.fxml; // ✅ autoriser le chargement FXML du contrôleur
@@ -12,6 +12,6 @@ module com.example.tunarche {
     exports TunArche.controllers;
 
 
-   // opens com.example.tunarche to javafx.fxml;
+    //opens com.example.tunarche to javafx.fxml;
     exports TunArche.test;
 }

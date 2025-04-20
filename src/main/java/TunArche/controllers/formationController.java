@@ -3,18 +3,21 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
+import javafx.geometry.Pos;
+
+
 
 import TunArche.entities.Evaluation;
 import TunArche.services.EvaluationImpl;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -24,16 +27,21 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import TunArche.entities.Formation;
 import TunArche.services.FormationImpl;
 
 import java.io.File;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
 import javafx.scene.control.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
@@ -80,7 +88,6 @@ public class formationController {
         colDateFin.setCellValueFactory(new PropertyValueFactory<>("datefin"));     // Utilise LocalDate directement
         colPlaces.setCellValueFactory(new PropertyValueFactory<>("nbrplaces"));
         colImage.setCellValueFactory(new PropertyValueFactory<>("image_name"));
-
         // Load data into table
         loadFormationsData();
 
@@ -433,5 +440,63 @@ public class formationController {
         }
     }
 
+    // Méthode pour générer une description à partir du titre
+    @FXML
+    private void generateDescription(ActionEvent event) {
+        String titre = titreid.getText().trim();
+        if (!titre.isEmpty()) {
+            String prompt = "Donne-moi une description professionnelle pour une formation intitulée : " + titre;
+            String result = TunArche.services.chatbot.askBot(prompt);
+            descriptionid.setText(result);
+        } else {
+            System.out.println("Titre vide !");
+        }
+    }
+    @FXML private TextField userInput;
+    @FXML
+    private VBox chatBox;
+    @FXML private AnchorPane chatbotContainer;
+    @FXML private ScrollPane chatScrollPane;
+    @FXML
+
+
+
+    private String lastGeneratedTitle = "";
+    private String lastGeneratedDescription = "";
+
+
+    // Ouvrir le chatbot lorsqu'on clique sur Exemple
+    @FXML
+    private void openChatbot(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/chatbot.fxml"));
+            Parent root = loader.load();
+
+            ChatbotController chatbotController = loader.getController();
+            chatbotController.setFormationController(this); // ⬅ Lien avec le formulaire !
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Assistant Chatbot");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setChatbotData(String title, String description) {
+        this.lastGeneratedTitle = title;
+        this.lastGeneratedDescription = description;
+        insertToMainForm(); // met à jour les champs
+    }
+
+
+
+
+    // Insérer les données dans le formulaire
+    private void insertToMainForm() {
+        titreid.setText(lastGeneratedTitle);
+        descriptionid.setText(lastGeneratedDescription);
+    }
 
 }
