@@ -499,4 +499,21 @@ public class formationController {
         descriptionid.setText(lastGeneratedDescription);
     }
 
+
+    public void goToEvaluations(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/evaluations.fxml"));
+            Parent root = loader.load();
+
+
+            // Obtenir la scène actuelle et remplacer la racine
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

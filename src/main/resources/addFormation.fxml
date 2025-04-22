@@ -19,11 +19,14 @@
             <Label text="🏠 Menu" style="-fx-font-size: 18px; -fx-text-fill: white; -fx-font-weight: bold;"/>
             <Button text="👥 Utilisateurs" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;"/>
             <Button text="🎓 Formations" style="-fx-background-color: #1abc9c; -fx-text-fill: white; -fx-pref-width: 150;"/>
+            <Button text="📊 Évaluations" onAction="#goToEvaluations"
+                    style="-fx-background-color: #f39c12; -fx-text-fill: white;"/>
             <Button text="📅 Événements" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;"/>
             <Button text="🎫 Billets" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;"/>
             <Button text="🚪 Déconnexion" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-pref-width: 150;"/>
             <Button fx:id="btnFront" text="🌐 Front" onAction="#goToFront"
                     style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-pref-width: 150;"/>
+
         </VBox>
     </left>
 

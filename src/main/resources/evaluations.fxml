@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="TunArche.controllers.EvaluationController"
+      spacing="10" alignment="TOP_LEFT" prefWidth="400">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label fx:id="averageLabel" text="4,7" style="-fx-font-size: 48px; -fx-font-weight: bold;" />
+        <VBox spacing="5">
+            <HBox spacing="2">
+                <Label text="★" style="-fx-text-fill: #388e3c; -fx-font-size: 16px;" />
+                <Label text="★" style="-fx-text-fill: #388e3c; -fx-font-size: 16px;" />
+                <Label text="★" style="-fx-text-fill: #388e3c; -fx-font-size: 16px;" />
+                <Label text="★" style="-fx-text-fill: #388e3c; -fx-font-size: 16px;" />
+                <Label text="★½" style="-fx-text-fill: #388e3c; -fx-font-size: 16px;" />
+            </HBox>
+            <Label fx:id="totalReviewsLabel" text="31,4 M avis" style="-fx-font-size: 12px; -fx-text-fill: grey;" />
+        </VBox>
+    </HBox>
+
+    <!-- Répartition des notes -->
+    <VBox spacing="5">
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="5" />
+            <ProgressBar fx:id="progress5" prefWidth="250" style="-fx-accent: #388e3c;" />
+        </HBox>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="4" />
+            <ProgressBar fx:id="progress4" prefWidth="250" style="-fx-accent: #388e3c;" />
+        </HBox>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="3" />
+            <ProgressBar fx:id="progress3" prefWidth="250" style="-fx-accent: #388e3c;" />
+        </HBox>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="2" />
+            <ProgressBar fx:id="progress2" prefWidth="250" style="-fx-accent: #388e3c;" />
+        </HBox>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="1" />
+            <ProgressBar fx:id="progress1" prefWidth="250" style="-fx-accent: #388e3c;" />
+        </HBox>
+    </VBox>
+
+</VBox>

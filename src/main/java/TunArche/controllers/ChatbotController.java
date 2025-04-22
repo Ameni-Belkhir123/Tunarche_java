@@ -1,5 +1,6 @@
 package TunArche.controllers;
 
+import TunArche.services.chatbot;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,7 +24,6 @@ public class ChatbotController {
 
     private String lastGeneratedTitle = "";
     private String lastGeneratedDescription = "";
-
     private formationController formationController; // ✅ classe avec majuscule
 
     public void setFormationController(formationController controller) {
@@ -61,30 +61,56 @@ public class ChatbotController {
     }
 
     private void simulateBotResponse(String userMessage) {
-        Platform.runLater(() -> {
-            lastGeneratedTitle = "🎨 Atelier de Peinture Moderne";
-            lastGeneratedDescription = "Explorez les techniques modernes de peinture à travers des ateliers pratiques avec des artistes contemporains.";
+        new Thread(() -> {
+            String response = chatbot.askBot(userMessage); // Appel API
 
-            String response = "Voici une proposition de formation :\n"
-                    + "Titre : " + lastGeneratedTitle + "\n"
-                    + "Description : " + lastGeneratedDescription;
+            Platform.runLater(() -> {
+                addMessage("🤖", response, "#f1c40f", "left");
 
-            addMessage("🤖", response, "#f1c40f", "left");
+                // Stocker le résultat si besoin dans les champs internes
+                lastGeneratedTitle = extractTitle(response);
+                lastGeneratedDescription = extractDescription(response);
 
-            Button insertBtn = new Button("✅ Insérer");
-            insertBtn.setStyle("-fx-background-color: #2ecc71; -fx-text-fill: white;");
-            insertBtn.setOnAction(e -> {
-                if (formationController != null) {
-                    formationController.setChatbotData(lastGeneratedTitle, lastGeneratedDescription);
-                }
-                closeChatbot();
+                Button insertBtn = new Button("✅ Insérer");
+                insertBtn.setStyle("-fx-background-color: #2ecc71; -fx-text-fill: white;");
+                insertBtn.setOnAction(e -> {
+                    if (formationController != null) {
+                        formationController.setChatbotData(lastGeneratedTitle, lastGeneratedDescription);
+                    }
+                    closeChatbot();
+                });
+
+                HBox btnContainer = new HBox(insertBtn);
+                btnContainer.setStyle("-fx-alignment: center-left;");
+                chatBox.getChildren().add(btnContainer);
             });
-
-            HBox btnContainer = new HBox(insertBtn);
-            btnContainer.setStyle("-fx-alignment: center-left;");
-            chatBox.getChildren().add(btnContainer);
-        });
+        }).start();
     }
+
+    // Extraction automatique du titre à partir du message du bot
+    private String extractTitle(String response) {
+        // On cherche une ligne qui commence par "Titre : ..."
+        String[] lines = response.split("\n");
+        for (String line : lines) {
+            if (line.toLowerCase().startsWith("titre")) {
+                return line.split(":", 2)[1].trim();
+            }
+        }
+        return "";
+    }
+
+    // Extraction automatique de la description
+    private String extractDescription(String response) {
+        // On cherche une ligne qui commence par "Description : ..."
+        String[] lines = response.split("\n");
+        for (String line : lines) {
+            if (line.toLowerCase().startsWith("description")) {
+                return line.split(":", 2)[1].trim();
+            }
+        }
+        return "";
+    }
+
 
     private void closeChatbot() {
         Stage stage = (Stage) chatBox.getScene().getWindow();
