@@ -5,6 +5,7 @@ import TunArche.services.FormationImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -37,12 +38,55 @@ public class showFormationController  {
     @FXML
     private TextField searchField;
 
+    @FXML
+    private Pagination pagination;
+
+
+
     private FormationImpl formationService = new FormationImpl();
+    private ObservableList<Formation> observableFormations;
+    private FilteredList<Formation> filteredFormations;
+
+    private static final int ITEMS_PER_PAGE = 6;
 
     @FXML
     public void initialize() {
-        List<Formation> formations = formationService.showAll();
+        List<Formation> allFormations = formationService.showAll();
+        observableFormations = FXCollections.observableArrayList(allFormations);
+        filteredFormations = new FilteredList<>(observableFormations, f -> true);
 
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredFormations.setPredicate(formation -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                return formation.getTitre().toLowerCase().contains(lowerCaseFilter)
+                        || formation.getDescription().toLowerCase().contains(lowerCaseFilter);
+            });
+            updatePagination();
+        });
+
+        updatePagination();
+    }
+
+    private void updatePagination() {
+        int pageCount = (int) Math.ceil((double) filteredFormations.size() / ITEMS_PER_PAGE);
+        pagination.setPageCount(pageCount > 0 ? pageCount : 1);
+        pagination.setCurrentPageIndex(0);
+        pagination.setPageFactory(this::createPage);
+    }
+
+    private VBox createPage(int pageIndex) {
+        int fromIndex = pageIndex * ITEMS_PER_PAGE;
+        int toIndex = Math.min(fromIndex + ITEMS_PER_PAGE, filteredFormations.size());
+        List<Formation> pageItems = filteredFormations.subList(fromIndex, toIndex);
+        displayFormations(pageItems);
+        return new VBox(); // Retourne un nœud vide requis par la pagination
+    }
+
+    private void displayFormations(List<Formation> formations) {
+        formationGrid.getChildren().clear();
         int col = 0;
         int row = 0;
         for (Formation formation : formations) {
@@ -63,7 +107,6 @@ public class showFormationController  {
         card.setPrefWidth(220);
         card.setStyle("-fx-background-color: #ffffff; -fx-border-color: #ccc; -fx-border-radius: 8; -fx-background-radius: 8;");
 
-        // Image
         ImageView imageView = new ImageView();
         imageView.setFitWidth(200);
         imageView.setFitHeight(120);
@@ -75,12 +118,10 @@ public class showFormationController  {
             System.out.println("⚠️ Image introuvable : " + formation.getImage_name());
         }
 
-        // Titre
         Label title = new Label(formation.getTitre());
         title.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
         title.setWrapText(true);
 
-        // Description
         Label desc = new Label(getShortDescription(formation.getDescription(), 80));
         desc.setWrapText(true);
         desc.setStyle("-fx-text-fill: #444;");
@@ -105,10 +146,6 @@ public class showFormationController  {
             stage.setTitle("Détails de la formation");
             stage.setScene(new Scene(root));
             stage.show();
-
-            // Optional: Fermer l’ancienne fenêtre
-            // ((Stage) formationGrid.getScene().getWindow()).close();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -116,4 +153,8 @@ public class showFormationController  {
 
     private String getShortDescription(String text, int maxLength) {
         return text.length() > maxLength ? text.substring(0, maxLength) + "..." : text;
-    }}
+    }
+
+    public void handleLogout(ActionEvent actionEvent) {
+    }
+}

@@ -2,13 +2,14 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="TunArche.controllers.showFormationController" prefHeight="600" prefWidth="800">
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="TunArche.controllers.artistFormationController" prefHeight="600.0" prefWidth="800.0">
 
+    <!-- TOP - Section modifiée selon votre demande -->
     <top>
         <VBox spacing="10">
             <!-- Barre de navigation -->
@@ -50,23 +51,22 @@
         </VBox>
     </top>
 
+    <!-- CENTRE - Modifié pour affichage en grille -->
     <center>
-        <ScrollPane fitToWidth="true">
-            <VBox fx:id="rootVBox" spacing="20" alignment="CENTER">
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
+            <GridPane fx:id="formationGrid" hgap="20" vgap="20" alignment="CENTER">
                 <padding>
                     <Insets top="20" right="20" bottom="20" left="20"/>
                 </padding>
-                <GridPane fx:id="formationGrid" hgap="20" vgap="20">
-                    <padding>
-                        <Insets top="20" right="20" bottom="20" left="20"/>
-                    </padding>
-                </GridPane>
-            </VBox>
+                <!-- Les éléments seront ajoutés dynamiquement via le contrôleur -->
+            </GridPane>
         </ScrollPane>
     </center>
 
+    <!-- BOTTOM -->
     <bottom>
         <Pagination fx:id="pagination" maxPageIndicatorCount="10"
-                    style="-fx-border-color: #dfe6e9; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding:5;"/>
+                    style="-fx-border-color: #dfe6e9; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 5;" />
     </bottom>
+
 </BorderPane>

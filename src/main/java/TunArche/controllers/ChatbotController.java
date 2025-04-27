@@ -1,6 +1,6 @@
 package TunArche.controllers;
 
-import TunArche.services.chatbot;
+import TunArche.services.GeminiChatbot;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -62,7 +62,12 @@ public class ChatbotController {
 
     private void simulateBotResponse(String userMessage) {
         new Thread(() -> {
-            String response = chatbot.askBot(userMessage); // Appel API
+            String prompt = "Génère un titre et une description pour une formation. " +
+                    "Réponds uniquement sous ce format :\n" +
+                    "Titre : [TON TITRE]\n" +
+                    "Description : [TA DESCRIPTION]";
+
+            String response = GeminiChatbot.askGemini(prompt + "\n\n" + userMessage);
 
             Platform.runLater(() -> {
                 addMessage("🤖", response, "#f1c40f", "left");

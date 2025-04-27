@@ -4,6 +4,7 @@ module com.example.tunarche {
     requires java.sql;
     requires java.desktop;
     requires okhttp3;
+    requires org.json;
 
 
     opens TunArche.test to javafx.graphics;

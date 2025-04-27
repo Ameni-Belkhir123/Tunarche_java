@@ -1,54 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.chart.*?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="TunArche.controllers.EvaluationController"
-      spacing="10" alignment="TOP_LEFT" prefWidth="400">
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="TunArche.controllers.EvaluationController">
 
-    <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
-    </padding>
-
-    <HBox spacing="10" alignment="CENTER_LEFT">
-        <Label fx:id="averageLabel" text="4,7" style="-fx-font-size: 48px; -fx-font-weight: bold;" />
-        <VBox spacing="5">
-            <HBox spacing="2">
-                <Label text="★" style="-fx-text-fill: #388e3c; -fx-font-size: 16px;" />
-                <Label text="★" style="-fx-text-fill: #388e3c; -fx-font-size: 16px;" />
-                <Label text="★" style="-fx-text-fill: #388e3c; -fx-font-size: 16px;" />
-                <Label text="★" style="-fx-text-fill: #388e3c; -fx-font-size: 16px;" />
-                <Label text="★½" style="-fx-text-fill: #388e3c; -fx-font-size: 16px;" />
-            </HBox>
-            <Label fx:id="totalReviewsLabel" text="31,4 M avis" style="-fx-font-size: 12px; -fx-text-fill: grey;" />
+    <!-- Barre latérale gauche -->
+    <left>
+        <VBox spacing="15" style="-fx-background-color: #2c3e50; -fx-padding: 10;">
+            <Label text="🏠 Menu" style="-fx-font-size: 18px; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            <Button text="👥 Utilisateurs" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;"/>
+            <Button text="🎓 Formations" onAction="#goToFormation"
+                    style="-fx-background-color: #1abc9c; -fx-text-fill: white; -fx-pref-width: 150;"/>
+            <Button text="📊 Évaluations" style="-fx-background-color: #f39c12; -fx-text-fill: white;"/>
+            <Button text="📅 Événements" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;"/>
+            <Button text="🎫 Billets" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;"/>
+            <Button text="🚪 Déconnexion" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-pref-width: 150;"/>
+            <Button fx:id="btnFront" text="🌐 Front" onAction="#goToFront"
+                    style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-pref-width: 150;"/>
         </VBox>
-    </HBox>
+    </left>
 
-    <!-- Répartition des notes -->
-    <VBox spacing="5">
-        <HBox spacing="10" alignment="CENTER_LEFT">
-            <Label text="5" />
-            <ProgressBar fx:id="progress5" prefWidth="250" style="-fx-accent: #388e3c;" />
-        </HBox>
-        <HBox spacing="10" alignment="CENTER_LEFT">
-            <Label text="4" />
-            <ProgressBar fx:id="progress4" prefWidth="250" style="-fx-accent: #388e3c;" />
-        </HBox>
-        <HBox spacing="10" alignment="CENTER_LEFT">
-            <Label text="3" />
-            <ProgressBar fx:id="progress3" prefWidth="250" style="-fx-accent: #388e3c;" />
-        </HBox>
-        <HBox spacing="10" alignment="CENTER_LEFT">
-            <Label text="2" />
-            <ProgressBar fx:id="progress2" prefWidth="250" style="-fx-accent: #388e3c;" />
-        </HBox>
-        <HBox spacing="10" alignment="CENTER_LEFT">
-            <Label text="1" />
-            <ProgressBar fx:id="progress1" prefWidth="250" style="-fx-accent: #388e3c;" />
-        </HBox>
-    </VBox>
+    <!-- Contenu principal à droite -->
+    <center>
+        <VBox spacing="10" alignment="TOP_LEFT" prefWidth="500">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
 
-</VBox>
+            <!-- ComboBox pour sélectionner une formation -->
+            <ComboBox fx:id="formationComboBox" prefWidth="300" promptText="Choisir une formation"/>
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="averageLabel" text="0.0" style="-fx-font-size: 48px; -fx-font-weight: bold;" />
+                <VBox spacing="5">
+                    <HBox spacing="2">
+                        <Label text="★" style="-fx-text-fill: #388e3c; -fx-font-size: 16px;" />
+                        <Label text="★" style="-fx-text-fill: #388e3c; -fx-font-size: 16px;" />
+                        <Label text="★" style="-fx-text-fill: #388e3c; -fx-font-size: 16px;" />
+                        <Label text="★" style="-fx-text-fill: #388e3c; -fx-font-size: 16px;" />
+                        <Label text="★" style="-fx-text-fill: #388e3c; -fx-font-size: 16px;" />
+                    </HBox>
+                    <Label fx:id="totalReviewsLabel" text="0 avis" style="-fx-font-size: 12px; -fx-text-fill: grey;" />
+                </VBox>
+            </HBox>
+
+            <!-- Répartition des notes -->
+            <VBox spacing="5">
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="5" />
+                    <ProgressBar fx:id="progress5" prefWidth="300" style="-fx-accent: #388e3c;" />
+                </HBox>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="4" />
+                    <ProgressBar fx:id="progress4" prefWidth="300" style="-fx-accent: #388e3c;" />
+                </HBox>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="3" />
+                    <ProgressBar fx:id="progress3" prefWidth="300" style="-fx-accent: #388e3c;" />
+                </HBox>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="2" />
+                    <ProgressBar fx:id="progress2" prefWidth="300" style="-fx-accent: #388e3c;" />
+                </HBox>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="1" />
+                    <ProgressBar fx:id="progress1" prefWidth="300" style="-fx-accent: #388e3c;" />
+                </HBox>
+            </VBox>
+
+            <!-- Liste des commentaires -->
+            <Label text="Commentaires :" style="-fx-font-weight: bold; -fx-font-size: 14px;" />
+            <ListView fx:id="commentListView" prefHeight="200" prefWidth="400"/>
+        </VBox>
+    </center>
+</BorderPane>

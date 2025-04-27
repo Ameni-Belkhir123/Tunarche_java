@@ -12,7 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-
+import TunArche.services.SmsSender;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -94,6 +94,7 @@ public class FormationDetailsController {
         if (placesRestantes > 0) {
             placesRestantes--;
             placesRestantesLabel.setText(String.valueOf(placesRestantes));
+            SmsSender.envoyerSms("+21658499352", "Félicitations ! Vous êtes inscrit à la formation.");
         } else {
             showInfo("Aucune place restante !");
         }
