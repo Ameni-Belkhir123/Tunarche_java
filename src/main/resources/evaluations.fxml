@@ -6,7 +6,7 @@
 <?import javafx.scene.chart.*?>
 
 <BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="TunArche.controllers.EvaluationController">
+            fx:controller="TunArche.controllers.EvaluationController" prefHeight="600.0" prefWidth="800.0">
 
     <!-- Barre latérale gauche -->
     <left>
@@ -47,6 +47,16 @@
                     <Label fx:id="totalReviewsLabel" text="0 avis" style="-fx-font-size: 12px; -fx-text-fill: grey;" />
                 </VBox>
             </HBox>
+            <!-- BarChart pour la répartition des notes -->
+            <BarChart fx:id="barChart" prefWidth="600" prefHeight="400">
+                <xAxis>
+                    <CategoryAxis fx:id="xAxis" label="Note"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis fx:id="yAxis" label="Nombre d'avis"/>
+                </yAxis>
+            </BarChart>
+
 
             <!-- Répartition des notes -->
             <VBox spacing="5">

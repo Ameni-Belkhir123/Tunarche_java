@@ -26,7 +26,7 @@ public class NtfySender {
     }
 
     public static void main(String[] args) {
-        sendNotification("test-java", "👋 Hello depuis Java !");
+        sendNotification("test-java", "👋 Hello vous ete inscrit a la formation !");
     }
 }
 

@@ -4,7 +4,7 @@
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="TunArche.controllers.FormationDetailsController" prefWidth="600" prefHeight="800">
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="TunArche.controllers.FormationDetailsController" prefHeight="600.0" prefWidth="800.0">
     <VBox alignment="TOP_CENTER" spacing="20" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
 
         <Label text="Détails De La Formation" style="-fx-font-size: 28px; -fx-font-weight: bold;" />

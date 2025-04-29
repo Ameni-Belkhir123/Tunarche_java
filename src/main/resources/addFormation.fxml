@@ -83,7 +83,7 @@
                 <Button text="Ajouter" onAction="#saveFormation" style="-fx-background-color: #2ecc71; -fx-text-fill: white;"/>
                 <Button fx:id="btnUpdate" text="Modifier" disable="true" onAction="#handleUpdate" style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
                 <Button fx:id="btnDelete" text="Supprimer" disable="true" onAction="#handleDelete" style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
-                <Button text="✨ Exemple" onAction="#openChatbot" style="-fx-background-color: #9b59b6; -fx-text-fill: white;"/>
+                <Button text="Chatbot" onAction="#openChatbot" style="-fx-background-color: #9b59b6; -fx-text-fill: white;"/>
             </HBox>
         </VBox>
     </center>

@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -156,5 +157,22 @@ public class showFormationController  {
     }
 
     public void handleLogout(ActionEvent actionEvent) {
+    }
+
+    public void handleGoToArtistFormation(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/artistFormationView.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+            stage.setScene(new Scene(root));
+            stage.setTitle("Formations pour Artistes");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Tu peux afficher une alerte ici si tu as une méthode showWarning()
+        }
+
     }
 }

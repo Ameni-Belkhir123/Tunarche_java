@@ -94,7 +94,8 @@ public class FormationDetailsController {
         if (placesRestantes > 0) {
             placesRestantes--;
             placesRestantesLabel.setText(String.valueOf(placesRestantes));
-            SmsSender.envoyerSms("+21658499352", "Félicitations ! Vous êtes inscrit à la formation.");
+            String message = "Félicitations ! Vous êtes inscrit à la formation : " + formation.getTitre();
+            SmsSender.envoyerSms("+21658499352", message);
         } else {
             showInfo("Aucune place restante !");
         }
@@ -217,7 +218,14 @@ public class FormationDetailsController {
     void handleAccederFormation() {
         if (formation != null && formation.getLink() != null && !formation.getLink().isEmpty()) {
             try {
+                // Ouvrir le lien
                 java.awt.Desktop.getDesktop().browse(new java.net.URI(formation.getLink()));
+
+                // Envoyer une notification via ntfy
+                String topic = "TunArche"; // Tu peux personnaliser ce topic
+                String message = "✅ Accès à la formation : " + formation.getTitre();
+                TunArche.services.NtfySender.sendNotification(topic, message);
+
             } catch (Exception e) {
                 e.printStackTrace();
                 showWarning("Impossible d'ouvrir le lien.");
@@ -226,5 +234,4 @@ public class FormationDetailsController {
             showWarning("Aucun lien disponible pour cette formation.");
         }
     }
-
 }

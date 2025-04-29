@@ -364,10 +364,15 @@ public class formationController {
         }
 
         // Validation du nombre de places
+        // Validation du nombre de places
         try {
             int nbrPlaces = Integer.parseInt(nbrplacesid.getText().trim());
             if (nbrPlaces <= 0) {
                 showAlert(Alert.AlertType.WARNING, "Valeur invalide", "Le nombre de places doit être un entier positif.");
+                return false;
+            }
+            if (nbrPlaces > 30) {
+                showAlert(Alert.AlertType.WARNING, "Valeur invalide", "Le nombre de places ne peut pas dépasser 30.");
                 return false;
             }
         } catch (NumberFormatException e) {
@@ -384,8 +389,9 @@ public class formationController {
         return true;
     }
 
+    //valider le link
     private boolean isValidURL(String url) {
-        String regex = "^(https?://).+";
+        String regex = "^(https?://|www\\.).+";
         return Pattern.matches(regex, url);
     }
 
@@ -457,7 +463,7 @@ public class formationController {
     private String lastGeneratedDescription = "";
 
 
-    // Ouvrir le chatbot lorsqu'on clique sur Exemple
+    // Ouvrir le chatbot lorsqu'on clique sur chatbot
     @FXML
     private void openChatbot(ActionEvent event) {
         try {

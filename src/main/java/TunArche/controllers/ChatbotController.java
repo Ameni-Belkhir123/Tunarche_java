@@ -62,7 +62,7 @@ public class ChatbotController {
 
     private void simulateBotResponse(String userMessage) {
         new Thread(() -> {
-            String prompt = "Génère un titre et une description pour une formation. " +
+            String prompt = "Génère un titre et une description pour une formation dans le dommaine de l'art. " +
                     "Réponds uniquement sous ce format :\n" +
                     "Titre : [TON TITRE]\n" +
                     "Description : [TA DESCRIPTION]";

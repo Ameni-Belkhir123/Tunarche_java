@@ -15,7 +15,7 @@ public class HomePage extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/formation.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/addFormation.fxml"));
             Scene scene = new Scene(root);
             stage.setScene(scene); // ✅ utiliser l'objet 'stage' et non la classe
             stage.setTitle("Ajouter une Formation"); // facultatif mais sympa
