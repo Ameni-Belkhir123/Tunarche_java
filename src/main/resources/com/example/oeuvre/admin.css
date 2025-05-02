@@ -1,0 +1,159 @@
+/* Base styles for the sidebar */
+ .sidebar {
+  -fx-background-color: #333;
+  -fx-padding: 15px;
+ }
+
+ .sidebar-title {
+  -fx-font-size: 1.4em;
+  -fx-font-weight: bold;
+  -fx-text-fill: white;
+  -fx-padding: 0 0 20px 0;
+ }
+
+ .sidebar-link {
+  -fx-text-fill: #ddd;
+  -fx-font-size: 1em;
+  -fx-padding: 10px 0;
+  -fx-cursor: hand;
+ }
+
+ .sidebar-link:hover {
+  -fx-text-fill: white;
+ }
+
+ /* Styles for the top title */
+ .top-title {
+  -fx-font-size: 1.6em;
+  -fx-font-weight: bold;
+  -fx-text-fill: #333;
+  -fx-padding: 15px;
+  -fx-background-color: #f0f0f0;
+  -fx-border-bottom: 1px solid #ccc;
+ }
+
+ /* Styles for the content area */
+ .content-area {
+  -fx-background-color: #f8f8f8;
+  -fx-padding: 20px;
+ }
+
+ .section-title {
+  -fx-font-size: 1.8em;
+  -fx-font-weight: bold;
+  -fx-text-fill: #333;
+  -fx-padding: 0 0 10px 0;
+  -fx-border-color: transparent;
+  -fx-border-width: 0 0 1px 0;
+  -fx-border-style: solid;
+  -fx-border-bottom-color: #ddd;
+ }
+
+ .subsection-title {
+  -fx-font-size: 1.2em;
+  -fx-font-weight: bold;
+  -fx-text-fill: #555;
+  -fx-padding: 15px 0 5px 0;
+ }
+
+ .form-field {
+  -fx-padding: 8px;
+  -fx-border-color: #ccc;
+  -fx-border-radius: 5px;
+ }
+
+ /* Modern list view styles */
+ .modern-list-view {
+  -fx-background-color: white;
+  -fx-border-color: #ccc;
+  -fx-border-width: 1px;
+  -fx-border-radius: 5px;
+  -fx-padding: 5px;
+ }
+
+ .modern-list-view .list-cell {
+  -fx-padding: 10px;
+  -fx-font-size: 1em;
+  -fx-text-fill: #333;
+  -fx-background-color: transparent;
+ }
+
+ .modern-list-view .list-cell:odd {
+  -fx-background-color: #f9f9f9;
+ }
+
+ .modern-list-view .list-cell:hover {
+  -fx-background-color: #e0f7fa; /* Light cyan hover */
+  -fx-cursor: hand;
+ }
+
+ .modern-list-view .list-cell:selected {
+  -fx-background-color: #00bcd4; /* Cyan selection */
+  -fx-text-fill: white;
+ }
+
+ /* Modern button styles */
+ .modern-button {
+  -fx-background-color: #00bcd4; /* Cyan */
+  -fx-text-fill: white;
+  -fx-font-size: 1em;
+  -fx-padding: 10px 20px;
+  -fx-border-radius: 5px;
+  -fx-background-radius: 5px;
+  -fx-border-color: transparent;
+  -fx-cursor: hand;
+ }
+
+ .modern-button:hover {
+  -fx-background-color: #26c6da; /* Darker cyan */
+ }
+
+ .modern-button:pressed {
+  -fx-background-color: #00acc1; /* Even darker cyan */
+ }
+
+ /* Modern danger button style (for delete/remove) */
+ .modern-button-danger {
+  -fx-background-color: #f44336; /* Red */
+  -fx-text-fill: white;
+  -fx-font-size: 1em;
+  -fx-padding: 10px 20px;
+  -fx-border-radius: 5px;
+  -fx-background-radius: 5px;
+  -fx-border-color: transparent;
+  -fx-cursor: hand;
+ }
+
+ .modern-button-danger:hover {
+  -fx-background-color: #e53935; /* Darker red */
+ }
+
+ .modern-button-danger:pressed {
+  -fx-background-color: #d32f2f; /* Even darker red */
+ }
+
+ /* Table view styles (you might want to customize these further) */
+ .table-view {
+  -fx-background-color: white;
+  -fx-border-color: #ccc;
+  -fx-border-width: 1px;
+  -fx-border-radius: 5px;
+ }
+
+ .table-column {
+  -fx-alignment: center;
+ }
+
+ .table-cell {
+  -fx-alignment: center;
+  -fx-padding: 8px;
+ }
+
+ .table-row-cell:odd {
+  -fx-background-color: #f9f9f9;
+ }
+
+ .table-row-cell:selected {
+  -fx-background-color: #00bcd4;
+  -fx-text-fill: white;
+ }

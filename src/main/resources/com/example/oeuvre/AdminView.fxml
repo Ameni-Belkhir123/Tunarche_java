@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.Hyperlink?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.oeuvre.Controllers.AdminController"
+            stylesheets="@admin.css">
+
+    <left>
+        <VBox styleClass="sidebar" prefWidth="200">
+            <padding>
+                <Insets top="20" left="15" right="15" bottom="20"/>
+            </padding>
+            <Label text="Admin Panel" styleClass="sidebar-title"/>
+            <Hyperlink fx:id="addGalerieLink" text="Ajouter Galerie" styleClass="sidebar-link" onAction="#showAddGalerieSection"/>
+            <Hyperlink fx:id="listGaleriesLink" text="Liste Galeries" styleClass="sidebar-link" onAction="#showListGaleriesSection"/>
+            <Hyperlink fx:id="requestsAssignLink" text="Demandes et Assignements" styleClass="sidebar-link" onAction="#showRequestsAssignSection"/>
+
+        </VBox>
+    </left>
+
+    <top>
+        <Label text="Admin Panel - Gestion des Galeries et des Oeuvres"
+               styleClass="top-title"/>
+    </top>
+
+    <center>
+        <StackPane fx:id="contentArea" styleClass="content-area">
+            <VBox fx:id="addGalerieSection" spacing="15" visible="true">
+                <padding>
+                    <Insets top="20" left="20" right="20" bottom="20"/>
+                </padding>
+                <Label text="Ajouter une Galerie" styleClass="section-title"/>
+                <Label text="Nom:"/>
+                <TextField fx:id="galerieNameField" promptText="Nom de la galerie" styleClass="form-field"/>
+                <Label text="Description:"/>
+                <TextField fx:id="galerieDescriptionField" promptText="Description de la galerie" styleClass="form-field"/>
+                <Label text="Adresse:"/>
+                <TextField fx:id="galerieAddressField" promptText="Adresse de la galerie" styleClass="form-field"/>
+                <HBox spacing="10" alignment="center">
+                    <Button text="Ajouter" onAction="#handleAddGalerie" styleClass="modern-button"/>
+                </HBox>
+            </VBox>
+
+            <VBox fx:id="listGaleriesSection" spacing="15" visible="false">
+                <padding>
+                    <Insets top="20" left="20" right="20" bottom="20"/>
+                </padding>
+                <Label text="Liste des Galeries" styleClass="section-title"/>
+                <ListView fx:id="galerieListView" prefHeight="300" onMouseClicked="#showOeuvresPopupOnDoubleClick" styleClass="modern-list-view"/>
+                <HBox spacing="10" alignment="center">
+                    <Button fx:id="updateButton" text="Modifier" onAction="#handleUpdateGalerie" styleClass="modern-button"/>
+                    <Button fx:id="deleteButton" text="Supprimer" onAction="#handleDeleteGalerie" styleClass="modern-button-danger"/>
+                </HBox>
+                <Label text="Oeuvres Assignées à la Galerie Sélectionnée" styleClass="subsection-title"/>
+                <ListView fx:id="assignedOeuvresListView" prefHeight="200" styleClass="modern-list-view"/>
+                <HBox spacing="10" alignment="center">
+                    <Button fx:id="removeButton" text="Retirer" onAction="#handleRemoveOeuvreFromGalerie" styleClass="modern-button-danger"/>
+                </HBox>
+            </VBox>
+
+            <VBox fx:id="requestsAssignSection" spacing="15" visible="false">
+                <padding>
+                    <Insets top="20" left="20" right="20" bottom="20"/>
+                </padding>
+                <Label text="Demandes d'Assignation et Assignements" styleClass="section-title"/>
+                <Label text="Demandes d'Assignation" styleClass="subsection-title"/>
+                <TableView fx:id="requestedOeuvresTableView" prefHeight="300" styleClass="table-view">
+                    <columns>
+                        <TableColumn text="Oeuvre" fx:id="oeuvreColumn" prefWidth="150"/>
+                        <TableColumn text="Gallery" fx:id="galleryColumn" prefWidth="150"/>
+                        <TableColumn text="User" fx:id="userColumn" prefWidth="100"/>
+                        <TableColumn text="Image" fx:id="imageColumn" prefWidth="150"/>
+                    </columns>
+                </TableView>
+                <HBox spacing="10" alignment="center" style="-fx-padding-top: 10px;">
+                    <Button fx:id="approveRequestButton" text="Approuver" onAction="#handleApproveRequest" styleClass="modern-button"/>
+                    <Button fx:id="rejectRequestButton" text="Rejeter" onAction="#handleRejectRequest" styleClass="modern-button-danger"/>
+                </HBox>
+            </VBox>
+
+            <VBox fx:id="oeuvreManagementView" styleClass="content-section" visible="false">
+                <Label text="Gestion des Oeuvres" styleClass="section-title"/>
+                <Label text="Contenu pour la gestion des oeuvres ici."/>
+            </VBox>
+        </StackPane>
+    </center>
+</BorderPane>

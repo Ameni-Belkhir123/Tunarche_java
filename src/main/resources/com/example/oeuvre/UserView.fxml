@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.ImageView?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.oeuvre.Controllers.UserController"
+            stylesheets="@user.css"
+            styleClass="root">
+
+    <left>
+        <VBox styleClass="sidebar">
+            <Label text="DashboardKit" styleClass="sidebar-title"/>
+            <Hyperlink text="Oeuvres" styleClass="sidebar-link" onAction="#showOeuvresContent"/>
+            <Hyperlink text="Ajouter Oeuvre" styleClass="sidebar-link" onAction="#showAddOeuvreForm"/>
+            <Hyperlink text="Paramètres" styleClass="sidebar-link" onAction="#showSettingsContent"/>
+            <VBox.margin>
+                <Insets bottom="20.0"/>
+            </VBox.margin>
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane fx:id="contentArea" styleClass="content-area">
+
+            <!-- Oeuvres -->
+            <VBox fx:id="oeuvresContent" styleClass="oeuvres-content" spacing="15">
+                <Label text="Tous les oeuvres" styleClass="content-title"/>
+                <TextField fx:id="searchField" promptText="Rechercher..." styleClass="search-field"/>
+
+                <!-- Suppression du ScrollPane et mise directe du TilePane -->
+                <TilePane fx:id="oeuvreCardContainer" hgap="15" vgap="15" styleClass="oeuvre-card-container">
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
+                    </padding>
+                </TilePane>
+
+                <Pagination fx:id="pagination" styleClass="pagination"/>
+            </VBox>
+
+            <!-- Formulaire d'ajout -->
+            <VBox fx:id="addOeuvreFormContent" styleClass="add-oeuvre-form" spacing="10" visible="false">
+                <Label text="Ajouter une nouvelle oeuvre" styleClass="form-section-title"/>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Titre :" styleClass="form-label"/>
+                    <TextField fx:id="titleField" promptText="Titre de l'oeuvre" styleClass="form-field"/>
+                </HBox>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Description :" styleClass="form-label"/>
+                    <TextField fx:id="descriptionField" promptText="Description" styleClass="form-field"/>
+                </HBox>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Image :" styleClass="form-label"/>
+                    <Button text="Choisir une Image" onAction="#handleChooseImage" styleClass="choose-image-button"/>
+                    <StackPane styleClass="image-preview-container">
+                        <ImageView fx:id="oeuvreImageView" fitHeight="100" fitWidth="100" preserveRatio="true" styleClass="image-view"/>
+                        <Label styleClass="no-image-label" text="Aucune image sélectionnée"/>
+                    </StackPane>
+                </HBox>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Nom de la galerie :" styleClass="form-label"/>
+                    <TextField fx:id="galleryField" promptText="Nom de la galerie" styleClass="form-field"/>
+                </HBox>
+
+                <Button fx:id="addOeuvreButton" text="Ajouter Oeuvre" onAction="#handleAddOeuvre" styleClass="add-oeuvre-button"/>
+            </VBox>
+
+            <!-- Tableau de bord -->
+            <VBox fx:id="dashboardContent" styleClass="dashboard-content" spacing="15" visible="false">
+                <Label text="Tableau de bord" styleClass="content-title"/>
+                <Label text="Contenu du tableau de bord ici."/>
+            </VBox>
+
+            <!-- Paramètres -->
+            <VBox fx:id="settingsContent" styleClass="settings-content" spacing="15" visible="false">
+                <Label text="Paramètres" styleClass="content-title"/>
+                <Label text="Contenu des paramètres ici."/>
+            </VBox>
+
+        </StackPane>
+    </center>
+
+    <fx:define>
+        <Dialog fx:id="oeuvreDetailsDialog" title="Détails de l'œuvre" resizable="false">
+            <dialogPane>
+                <DialogPane>
+                    <content>
+                        <VBox spacing="10" styleClass="oeuvre-details-container">
+                            <HBox spacing="20">
+                                <ImageView fx:id="detailImageView" fitHeight="200" fitWidth="200" preserveRatio="true"/>
+                                <VBox spacing="10">
+                                    <Label fx:id="detailTitleLabel" text="Titre d'oeuvre :" styleClass="detail-title"/>
+                                    <Label fx:id="detailGalleryLabel" styleClass="detail-gallery"/>
+                                    <Label fx:id="detailDescriptionLabel" text="Description d'oeuvre:" styleClass="detail-description" wrapText="true" maxWidth="300"/>
+                                </VBox>
+                            </HBox>
+                        </VBox>
+                    </content>
+                    <buttonTypes>
+                        <ButtonType text="Fermer" buttonData="CANCEL_CLOSE"/>
+                    </buttonTypes>
+                </DialogPane>
+            </dialogPane>
+        </Dialog>
+    </fx:define>
+
+</BorderPane>

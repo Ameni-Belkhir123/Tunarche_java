@@ -1,0 +1,79 @@
+/* loginregister.css */
+
+ /* General Styles */
+ .root-login, .root-register {
+  -fx-background-color: #f8f8f8; /* Light grey background */
+  -fx-alignment: center;
+  -fx-spacing: 15; /* Reduced spacing for a cleaner look */
+  -fx-padding: 20;
+ }
+
+ .login-title, .register-title {
+  -fx-font-size: 28px;
+  -fx-text-fill: #333; /* Dark grey text */
+  -fx-font-weight: bold;
+ }
+
+ .login-label, .register-label {
+  -fx-font-size: 14px;
+  -fx-text-fill: #555; /* Medium grey text */
+ }
+
+ .text-field, .password-field, .register-text-field, .register-password-field {
+  -fx-background-color: white;
+  -fx-border-color: #ddd; /* Light grey border */
+  -fx-border-radius: 5px;
+  -fx-padding: 10px;
+  -fx-font-size: 14px;
+ }
+
+ .login-button, .register-button {
+  -fx-background-color: #4285f4; /* Google Blue */
+  -fx-text-fill: white;
+  -fx-font-size: 16px;
+  -fx-padding: 12px;
+  -fx-border-radius: 5px;
+  -fx-cursor: hand;
+ }
+
+ .login-button:hover, .register-button:hover {
+  -fx-background-color: #3367d6; /* Darker Google Blue */
+ }
+
+ .error-message {
+  -fx-text-fill: red;
+  -fx-font-size: 12px;
+ }
+
+ .signup-link {
+  -fx-text-fill: #4285f4; /* Google Blue */
+  -fx-font-size: 14px;
+  -fx-cursor: hand;
+ }
+
+ .signup-link:hover {
+  -fx-underline: true;
+ }
+
+ .secondary-text {
+  -fx-font-size: 12px;
+  -fx-text-fill: #777; /* Light grey text */
+ }
+
+ /* Specific to LoginView */
+ .root-login {
+  -fx-spacing: 15;
+ }
+
+ .login-title {
+  -fx-margin-bottom: 20;
+ }
+
+ /* Specific to RegisterView (if you modify it) */
+ .root-register {
+  -fx-spacing: 10;
+ }
+
+ .register-title {
+  -fx-margin-bottom: 15;
+ }

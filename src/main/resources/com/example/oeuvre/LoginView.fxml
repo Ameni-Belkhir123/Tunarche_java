@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.Priority?>
+
+<?import java.net.URL?>
+<VBox fx:id="root" alignment="CENTER" spacing="15.0" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oeuvre.Controllers.LoginController" styleClass="root-login">
+    <stylesheets>
+        <URL value="@loginregister.css" />
+    </stylesheets>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <ImageView fitHeight="50.0" fitWidth="50.0" preserveRatio="true">
+        <image>
+
+        </image>
+        <VBox.margin>
+            <Insets bottom="10.0" />
+        </VBox.margin>
+    </ImageView>
+    <Label styleClass="login-title" text="Login">
+        <font>
+            <Font size="28.0" />
+        </font>
+        <VBox.margin>
+            <Insets bottom="20.0" />
+        </VBox.margin>
+    </Label>
+    <Label styleClass="login-label" text="Username" alignment="BASELINE_LEFT" prefWidth="Infinity" />
+    <TextField fx:id="usernameField" styleClass="text-field" promptText="yourname@example.com" prefWidth="Infinity" />
+    <Label styleClass="login-label" text="Password" alignment="BASELINE_LEFT" prefWidth="Infinity">
+        <VBox.margin>
+            <Insets top="10.0" />
+        </VBox.margin>
+    </Label>
+    <PasswordField fx:id="passwordField" styleClass="password-field" promptText="yourpassword" prefWidth="Infinity" />
+    <Button onAction="#handleLogin" styleClass="login-button" text="Login" prefWidth="Infinity" VBox.vgrow="NEVER">
+        <VBox.margin>
+            <Insets top="25.0" />
+        </VBox.margin>
+    </Button>
+    <VBox alignment="CENTER" spacing="5.0" VBox.vgrow="ALWAYS">
+        <VBox.margin>
+            <Insets top="20.0" />
+        </VBox.margin>
+        <Label styleClass="secondary-text" text="Don't have an account yet?" />
+        <Hyperlink onAction="#handleRegister" styleClass="signup-link" text="Sign up" />
+    </VBox>
+</VBox>

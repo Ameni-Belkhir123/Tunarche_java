@@ -1,0 +1,249 @@
+/* ==================== */
+/* MAIN LAYOUT STYLES */
+/* ==================== */
+.root {
+    -fx-background-color: #f5f5f5;
+    -fx-padding: 10px;
+}
+
+.sidebar {
+    -fx-background-color: #2c3e50;
+    -fx-padding: 15px;
+    -fx-spacing: 15px;
+}
+
+.content-area {
+    -fx-padding: 15px;
+    -fx-background-color: white;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);  /* Fixed: Added missing closing parenthesis */
+}
+
+/* ==================== */
+/* TYPOGRAPHY STYLES */
+/* ==================== */
+.sidebar-title,
+.content-title,
+.popup-title,
+.detail-title,
+.oeuvre-title,
+.form-section-title {
+    -fx-font-weight: bold;
+}
+
+.sidebar-title {
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+}
+
+.content-title {
+    -fx-font-size: 24px;
+    -fx-text-fill: #2c3e50;
+}
+
+.popup-title {
+    -fx-font-size: 20px;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 0 0 10px 0;
+}
+
+.detail-title {
+    -fx-font-size: 18px;
+}
+
+.form-section-title {
+    -fx-font-size: 18px;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 0 0 10px 0;
+}
+
+/* ==================== */
+/* FORM ELEMENTS */
+/* ==================== */
+.form-container {
+    -fx-padding: 15px;
+    -fx-spacing: 8px;
+    -fx-background-color: #f9f9f9;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.form-label {
+    -fx-font-weight: bold;
+    -fx-min-width: 100px;
+}
+
+.form-field {
+    -fx-pref-width: 200px;
+    -fx-padding: 8px;
+}
+
+.search-field {
+    -fx-pref-width: 300px;
+    -fx-padding: 8px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-border-color: #ddd;
+}
+
+/* ==================== */
+/* BUTTON STYLES */
+/* ==================== */
+.sidebar-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 15px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.sidebar-button:hover {
+    -fx-background-color: #34495e;
+}
+
+.choose-image-button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-padding: 8px 15px;
+}
+
+.choose-image-button:hover {
+    -fx-background-color: #2980b9;
+}
+
+.add-oeuvre-button {
+    -fx-background-color: #2ecc71;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+}
+
+.add-oeuvre-button:hover {
+    -fx-background-color: #27ae60;
+}
+
+/* ==================== */
+/* TABLE STYLES */
+/* ==================== */
+.oeuvre-table {
+    -fx-border-color: #ddd;
+    -fx-border-width: 1px;
+    -fx-max-height: 250px;
+}
+
+.oeuvre-table .column-header {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* ==================== */
+/* IMAGE STYLES */
+/* ==================== */
+.image-preview-container {
+    -fx-border-color: #ddd;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-padding: 5px;
+    -fx-alignment: center-right;
+    -fx-margin: 0 0 10px 90px;
+}
+
+.image-view {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
+}
+
+.no-image-label {
+    -fx-text-fill: #999;
+    -fx-font-style: italic;
+}
+
+/* ==================== */
+/* OEUVRE POPUP STYLES */
+/* ==================== */
+.popup-oeuvre-container {
+    -fx-background-color: #f8f8f8;
+    -fx-padding: 20px;
+    -fx-spacing: 15px;
+}
+
+.oeuvre-box {
+    -fx-background-color: white;
+    -fx-padding: 15px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);
+    -fx-spacing: 20px;
+}
+
+.oeuvre-box:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 8, 0, 0, 0);
+}
+
+.oeuvre-image-container {
+    -fx-background-color: #f0f0f0;
+    -fx-border-radius: 3px;
+    -fx-padding: 5px;
+}
+
+.oeuvre-details {
+    -fx-spacing: 10px;
+    -fx-padding: 5px;
+}
+
+.oeuvre-title {
+    -fx-font-size: 16px;
+    -fx-text-fill: #2c3e50;
+}
+
+.oeuvre-detail-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #555;
+}
+
+.oeuvre-detail-value {
+    -fx-text-fill: #555;
+}
+
+.oeuvre-description {
+    -fx-font-size: 13px;
+    -fx-text-fill: #333;
+    -fx-background-color: transparent;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 3px;
+}
+
+/* ==================== */
+/* SCROLL PANE STYLES */
+/* ==================== */
+.scroll-pane {
+    -fx-background: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 5px;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+/* ==================== */
+/* DETAILS CONTAINER */
+/* ==================== */
+.oeuvre-details-container {
+    -fx-padding: 20px;
+}
+
+.detail-gallery {
+    -fx-font-size: 14px;
+    -fx-text-fill: #555;
+}
+
+.detail-description {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+    -fx-wrap-text: true;
+}
