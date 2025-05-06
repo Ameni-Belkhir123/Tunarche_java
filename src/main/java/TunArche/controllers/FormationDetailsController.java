@@ -63,7 +63,7 @@ public class FormationDetailsController {
         setStarLabels();
         chargerCommentaires();
     }
-
+//disable the button if the formation is over
     private void updateButtonStates() {
         LocalDate today = LocalDate.now();
         accederform.setDisable(!today.equals(dateDebut));
