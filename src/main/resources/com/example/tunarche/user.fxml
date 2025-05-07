@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<BorderPane fx:id="rootPane" prefHeight="600" prefWidth="1494.0" xmlns="http://javafx.com/javafx/22.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TunArche.controllers.UserController">
+
+    <stylesheets>
+        <URL value="@css/artTheme.css" />
+    </stylesheets>
+
+    <top>
+        <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-padding: 20;" text="👥 Gestion des Utilisateurs" BorderPane.alignment="CENTER" />
+    </top>
+
+    <!-- ✅ Barre latérale -->
+    <left>
+        <VBox spacing="15" style="-fx-background-color: #2c3e50; -fx-padding: 20;">
+
+            <!-- ✅ AVATAR -->
+            <MenuButton fx:id="avatarMenu"  text="Nom de l'utilisateur"
+                        style="-fx-background-color: transparent; -fx-cursor: hand;"
+                        alignment="CENTER">
+                <graphic>
+                    <ImageView fitHeight="80" fitWidth="80" preserveRatio="true" smooth="true" style="-fx-clip: circle;">
+                        <image>
+                            <Image url="@images/avatar.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+                <items>
+                    <MenuItem fx:id="menuItemUser" text="" />
+
+
+                </items>
+            </MenuButton>
+
+            <!-- ✅ MENU LABEL -->
+            <Label style="-fx-font-size: 18px; -fx-text-fill: white; -fx-font-weight: bold;" text="🏠 Menu" />
+
+            <!-- ✅ MENU BOUTONS -->
+            <Button onAction="#handeluser" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="👥 Utilisateurs" />
+            <Button fx:id="eventbutton" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="📅 Événements" onAction="#handelevent"/>
+            <Button fx:id="btnBillets" onAction="#handebillet" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎫 Billets" />
+            <Button onAction="#handleCommantaire" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Commantaire" />
+            <Button onAction="#handlePublication" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Publication" />
+            <Button onAction="#handleformation" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Formations" />
+            <Button onAction="#handleevaluation" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Evaluation" />
+            <Button onAction="#handelconcours" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Concours" />
+            <Button onAction="#handelparticipation" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Participations" />
+
+            <Button onAction="#handleLogout" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-pref-width: 150;" text="🚪 Déconnexion" />
+        </VBox>
+    </left>
+
+    <!-- ✅ Centre avec formulaire et tableau dans la même ligne -->
+    <center>
+        <HBox alignment="CENTER_LEFT" spacing="30">
+
+            <!-- Formulaire -->
+            <VBox alignment="CENTER" prefHeight="500.0" prefWidth="480.0" spacing="15" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 30; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0, 2);">
+                <!-- Title Above the Form -->
+                <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #34495e;" text="🔧 Ajouter/Modifier un Utilisateur" />
+
+                <GridPane alignment="CENTER" hgap="15" vgap="15">
+                    <Label text="Nom:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <TextField fx:id="tfName" promptText="Nom" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                    <Label text="Prénom:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <TextField fx:id="tfLastName" promptText="Prénom" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                    <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <TextField fx:id="tfEmail" promptText="Email" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                    <Label text="Mot de passe:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                    <PasswordField fx:id="tfPassword" promptText="Mot de passe" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                    <!-- Password Strength -->
+                    <VBox alignment="CENTER_LEFT" prefWidth="250" spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                        <ProgressBar fx:id="strengthBar" prefWidth="250" progress="0" />
+                        <Label fx:id="strengthLabel" style="-fx-text-fill: gray;" text="Mot de passe faible" />
+                    </VBox>
+
+                    <Label text="Téléphone:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                    <TextField fx:id="tfPhone" promptText="Numéro de téléphone" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                </GridPane>
+
+                <HBox alignment="CENTER" spacing="20">
+                    <Button onAction="#handleAdd" text="Ajouter" />
+                    <Button onAction="#handleUpdate" text="Modifier" />
+                </HBox>
+            </VBox>
+
+            <!-- Tableau -->
+            <VBox spacing="15" style="-fx-padding: 20;">
+                <!-- Ajouter un champ pour filtrer par rôle -->
+
+
+                <!-- Ajouter un champ pour filtrer par vérification -->
+
+
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="📋 Liste des Utilisateurs" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Label text="🔎 Rechercher :" />
+                    <TextField fx:id="tfSearch" onKeyReleased="#handleSearch" promptText="Nom, Email ou Téléphone" />
+                </HBox>
+
+                <TableView fx:id="tableUser" prefHeight="447.0" prefWidth="810.0" style="-fx-background-color: #ecf0f1; -fx-background-radius: 8; -fx-border-color: #bdc3c7; -fx-border-width: 1px;" />
+            </VBox>
+        </HBox>
+    </center>
+
+</BorderPane>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<BorderPane prefHeight="600" prefWidth="1494.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TunArche.controllers.AdminParticipationController">
+
+    <!-- 🔝 Titre principal -->
+    <top>
+        <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-padding: 20;" text="🎨 Gestion des Participations" BorderPane.alignment="CENTER" />
+    </top>
+
+    <!-- 🔹 Menu latéral -->
+    <left>
+        <VBox spacing="15" style="-fx-background-color: #2c3e50; -fx-padding: 20;">
+
+            <!-- ✅ AVATAR -->
+            <MenuButton fx:id="avatarMenu"  text=""
+                        style="-fx-background-color: transparent; -fx-cursor: hand;"
+                        alignment="CENTER">
+                <graphic>
+                    <ImageView fitHeight="80" fitWidth="80" preserveRatio="true" smooth="true" style="-fx-clip: circle;">
+                        <image>
+                            <Image url="@images/avatar.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+                <items>
+                    <MenuItem fx:id="menuItemUser" text="" />
+
+
+                </items>
+            </MenuButton>
+
+            <!-- ✅ MENU LABEL -->
+            <Label style="-fx-font-size: 18px; -fx-text-fill: white; -fx-font-weight: bold;" text="🏠 Menu" />
+
+            <!-- ✅ MENU BOUTONS -->
+            <Button onAction="#handeluser" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="👥 Utilisateurs" />
+            <Button fx:id="eventbutton" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="📅 Événements" onAction="#handelevent"/>
+            <Button fx:id="btnBillets" onAction="#handebillet" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎫 Billets" />
+            <Button onAction="#handleCommantaire" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Commantaire" />
+            <Button onAction="#handlePublication" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Publication" />
+            <Button onAction="#handleformation" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Formations" />
+            <Button onAction="#handleevaluation" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Evaluation" />
+            <Button onAction="#handelconcours" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Concours" />
+            <Button onAction="#handelparticipation" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Participations" />
+
+            <Button onAction="#handleLogout" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-pref-width: 150;" text="🚪 Déconnexion" />
+        </VBox>
+    </left>
+
+    <!-- 📝 Formulaire de participation -->
+    <center>
+        <VBox spacing="10">
+            <padding>
+                <Insets bottom="20" left="20" right="20" top="20" />
+            </padding>
+
+            <GridPane hgap="10" vgap="10">
+                <Label text="Nom Artiste:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <TextField fx:id="nomArtisteField" promptText="Entrez le nom de l'artiste" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                <Label text="Email Artiste:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <TextField fx:id="emailArtisteField" promptText="exemple@mail.com" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <Label text="Date d'inscription:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <TextField fx:id="dateInscriptionField" promptText="AAAA-MM-JJ" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                <Label text="ID Œuvre:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <TextField fx:id="oeuvreIdField" promptText="ID de l'œuvre" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                <Label text="ID Concours:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                <TextField fx:id="concoursIdField" promptText="ID du concours" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                <Label text="Nombre de votes:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                <TextField fx:id="nbrVotesField" promptText="Nombre de votes" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+                <Label text="Image (path):" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                <TextField fx:id="imagePathField" promptText="chemin/vers/image.jpg" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            </GridPane>
+
+            <HBox spacing="10">
+
+                <Button fx:id="modifierBtn" onAction="#modifierParticipation" text="Modifier" style="-fx-background-color: #f1c40f; -fx-text-fill: white;" />
+                <Button fx:id="supprimerBtn" onAction="#supprimerParticipation" text="Supprimer" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" />
+
+            </HBox>
+        </VBox>
+    </center>
+
+    <!-- 📋 TableView des participations avec barre de recherche -->
+    <right>
+        <VBox spacing="10" style="-fx-padding: 10;">
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="📋 Liste des Participations" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Label text="🔎 Rechercher :" />
+                <TextField fx:id="searchField" onKeyReleased="#setupSearch" promptText="Nom ou email" />
+            </HBox>
+
+            <TableView fx:id="participationTable" prefHeight="600" prefWidth="400" onMouseClicked="#onTableClick">
+                <columns>
+                    <TableColumn fx:id="idCol" text="ID" />
+                    <TableColumn fx:id="nomArtisteCol" editable="false" text="Nom Artiste" />
+                    <TableColumn fx:id="emailArtisteCol" editable="false" text="Email" />
+                    <TableColumn fx:id="dateInscriptionCol"  editable="false" text="Date Insc." />
+                    <TableColumn fx:id="oeuvreIdCol"  editable="false" text="Œuvre ID" />
+                    <TableColumn fx:id="concoursIdCol"  editable="false" text="Concours ID" />
+                    <TableColumn fx:id="nbrVotesCol" text="Votes" />
+                    <TableColumn fx:id="imagePathCol"  editable="false" text="Image" />
+                </columns>
+            </TableView>
+        </VBox>
+    </right>
+
+</BorderPane>

@@ -1,0 +1,112 @@
+/* Couleurs de base pour le thème artistique */
+.root {
+    -fx-primary-color: #8e44ad;
+    -fx-secondary-color: #9b59b6;
+    -fx-accent-color: #e74c3c;
+    -fx-light-color: #ecf0f1;
+    -fx-dark-color: #2c3e50;
+}
+
+/* Style général du BorderPane */
+BorderPane {
+    -fx-background-color: linear-gradient(to bottom right, -fx-light-color, #d6dbdf);
+}
+
+/* Style des boutons */
+.button {
+    -fx-background-color: -fx-primary-color;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-padding: 8 16;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);
+}
+
+.button:hover {
+    -fx-background-color: -fx-secondary-color;
+    -fx-cursor: hand;
+}
+
+/* Style des champs de texte */
+.text-field, .password-field {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-border-color: -fx-primary-color;
+    -fx-border-radius: 15;
+    -fx-border-width: 1.5;
+    -fx-padding: 5 10;
+    -fx-font-size: 14px;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: -fx-accent-color;
+    -fx-effect: dropshadow(three-pass-box, rgba(142, 68, 173, 0.3), 10, 0, 0, 0);
+}
+
+/* Style des labels */
+.label {
+    -fx-text-fill: -fx-dark-color;
+}
+
+.label.title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-primary-color;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.1), 2, 0, 1, 1);
+}
+
+/* Style des hyperliens */
+.hyperlink {
+    -fx-text-fill: -fx-primary-color;
+    -fx-border-color: transparent;
+    -fx-underline: false;
+    -fx-font-weight: bold;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: -fx-accent-color;
+    -fx-underline: true;
+    -fx-cursor: hand;
+}
+
+/* Style pour les messages d'erreur */
+.error-label {
+    -fx-text-fill: -fx-accent-color;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(one-pass-box, rgba(231, 76, 60, 0.3), 0, 0, 0, 1);
+}
+.artistic-field {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-border-color: -fx-primary-color;
+    -fx-border-radius: 15;
+    -fx-border-width: 1.5;
+    -fx-padding: 8 15;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(three-pass-box, rgba(142, 68, 173, 0.1), 5, 0, 0, 1);
+}
+
+/* Correction: utiliser :focused au lieu de :focus */
+.artistic-field:focused {
+    -fx-border-color: -fx-accent-color;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(three-pass-box, rgba(142, 68, 173, 0.2), 10, 0, 0, 2);
+}
+
+/* Suppression de l'animation CSS non supportée */
+/* JavaFX ne supporte pas les keyframes CSS standard */
+
+.artistic-button {
+    -fx-background-color: -fx-primary-color;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-padding: 10 20;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 8, 0, 0, 3);
+}
+
+.artistic-button:hover {
+    -fx-background-color: -fx-secondary-color;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 4);
+}

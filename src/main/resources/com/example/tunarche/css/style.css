@@ -1,0 +1,146 @@
+/* style.css */
+.root {
+    -fx-font-family: 'Arial', sans-serif;
+    -fx-background-color: #f4f4f4;
+}
+
+.header {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d3d3d3;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 10;
+}
+
+.menu-button {
+    -fx-background-color: transparent;
+}
+
+.title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.today-button, .nav-button, .view-button {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d3d3d3;
+    -fx-border-radius: 3;
+    -fx-padding: 5 10;
+    -fx-font-size: 12px;
+}
+
+.today-button:hover, .nav-button:hover, .view-button:hover {
+    -fx-background-color: #e6e6e6;
+}
+
+.view-button:selected {
+    -fx-background-color: #d3e3fd;
+}
+
+.month-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.sidebar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d3d3d3;
+    -fx-border-width: 0 1 0 0;
+    -fx-padding: 10;
+}
+
+.mini-month-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-padding: 5 0;
+}
+
+.mini-weekday-grid .mini-weekday-label {
+    -fx-font-size: 10px;
+    -fx-text-fill: #999999;
+    -fx-alignment: center;
+    -fx-pref-width: 25;
+    -fx-pref-height: 15;
+}
+
+.mini-calendar-grid .mini-day-label {
+    -fx-font-size: 10px;
+    -fx-text-fill: #666666;
+    -fx-alignment: center;
+    -fx-pref-width: 25;
+    -fx-pref-height: 25;
+}
+
+.mini-calendar-grid .mini-day-label.outside-month {
+    -fx-text-fill: #cccccc;
+}
+
+.calendar-container {
+    -fx-background-color: #ffffff;
+    -fx-padding: 10;
+}
+
+.weekday-grid .weekday-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #666666;
+    -fx-alignment: center;
+    -fx-pref-width: 100;
+    -fx-pref-height: 40;
+    -fx-border-color: #d3d3d3;
+    -fx-border-width: 0 0 1 0;
+}
+
+.calendar-grid {
+    -fx-background-color: #ffffff;
+    -fx-min-height: 500;
+    -fx-min-width: 700;
+}
+
+.day-cell {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d3d3d3;
+    -fx-border-width: 0.5;
+    -fx-padding: 10;
+    -fx-min-height: 100;
+    -fx-min-width: 80;
+}
+
+.day-cell.today {
+    -fx-background-color: #d3d3d3;
+}
+
+.day-cell.outside-month .day-label {
+    -fx-text-fill: #cccccc;
+}
+
+.day-label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #333333;
+}
+
+.event-name {
+    -fx-font-size: 12px;
+    -fx-padding: 2 0 0 0;
+    -fx-wrap-text: true;
+    -fx-max-width: 80;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.8), 2, 0, 0, 1);
+}
+
+.event-name-important {
+    -fx-text-fill: #e69500;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.8), 2, 0, 0, 1);
+}
+
+.day-cell.has-event {
+    -fx-background-color: #ff0000 !important; /* Bright red for debugging */
+}
+.tooltip {
+    -fx-font-size: 12px;
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #333333;
+    -fx-border-color: #cccccc;
+}

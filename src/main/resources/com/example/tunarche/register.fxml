@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.Region?>
+
+<?import java.net.URL?>
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="TunArche.controllers.RegisterController"
+           prefWidth="450" prefHeight="450">
+
+    <stylesheets>
+        <URL value="@css/register.css"/>
+    </stylesheets>
+    <!-- Background Region -->
+    <Region fx:id="backgroundRegion" style="-fx-background-color: linear-gradient(to right, #74ebd5, #ACB6E5);"/>
+
+    <!-- Form UI -->
+    <BorderPane style="-fx-background-color: transparent;">
+        <center>
+            <VBox fx:id="formContainer" alignment="CENTER" spacing="12"
+                  style="-fx-background-color: white; -fx-padding: 30 40 30 40; -fx-border-color: #ddd; -fx-border-radius: 10; -fx-background-radius: 10;">
+                <Label text="📝 Inscription"
+                       style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                <TextField fx:id="tfFirstName" promptText="Prénom" prefWidth="300"
+                           style="-fx-border-color: #ccc; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 6;"/>
+                <TextField fx:id="tfLastName" promptText="Nom" prefWidth="300"
+                           style="-fx-border-color: #ccc; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 6;"/>
+                <TextField fx:id="tfEmail" promptText="Email" prefWidth="300"
+                           style="-fx-border-color: #ccc; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 6;"/>
+                <PasswordField fx:id="pfPassword" promptText="Mot de passe" prefWidth="300"
+                               style="-fx-border-color: #ccc; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 6;"/>
+
+                <!-- Password Strength Progress Bar -->
+                <ProgressBar fx:id="passwordStrengthBar" prefWidth="300" progress="0" style="-fx-accent: red;"/>
+
+                <!-- Password Strength Label -->
+                <Label fx:id="passwordStrengthLabel" text="Mot de passe faible" style="-fx-text-fill: red;"/>
+                <TextField fx:id="tfPhone" promptText="Téléphone" prefWidth="300"
+                           style="-fx-border-color: #ccc; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 6;"/>
+                <Button text="S'inscrire" onAction="#handleRegister"
+                        prefWidth="160"
+                        style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-weight: bold;"/>
+                <Label fx:id="lblError" textFill="red" visible="false"
+                       style="-fx-font-size: 12px; -fx-text-fill: red;"/>
+            </VBox>
+        </center>
+    </BorderPane>
+</StackPane>

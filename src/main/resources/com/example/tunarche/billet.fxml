@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.MenuItem?>
+<BorderPane fx:id="rootPane" prefHeight="600" prefWidth="1494.0" xmlns="http://javafx.com/javafx/22.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TunArche.controllers.BilletController">
+
+    <top>
+        <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-padding: 20;" text="🎫 Gestion des Billets" BorderPane.alignment="CENTER" />
+    </top>
+
+    <!-- ✅ Barre latérale -->
+    <left>
+        <VBox spacing="15" style="-fx-background-color: #2c3e50; -fx-padding: 20;">
+
+            <!-- ✅ AVATAR -->
+            <MenuButton fx:id="avatarMenu"
+                        style="-fx-background-color: transparent; -fx-cursor: hand;"
+                        alignment="CENTER">
+                <graphic>
+                    <ImageView fitHeight="80" fitWidth="80" preserveRatio="true" smooth="true" style="-fx-clip: circle;">
+                        <image>
+                            <Image url="@images/avatar.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+                <items>
+                    <MenuItem fx:id="menuItemUser" text="" />
+
+
+                </items>
+            </MenuButton>
+
+
+            <!-- ✅ MENU BOUTONS -->
+            <Button onAction="#handeluser" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="👥 Utilisateurs" />
+            <Button fx:id="eventbutton" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="📅 Événements" onAction="#handelevent"/>
+            <Button fx:id="btnBillets" onAction="#handebillet" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎫 Billets" />
+            <Button onAction="#handleCommantaire" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Commantaire" />
+            <Button onAction="#handlePublication" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Publication" />
+            <Button onAction="#handleformation" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Formations" />
+            <Button onAction="#handleevaluation" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Evaluation" />
+            <Button onAction="#handelconcours" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Concours" />
+            <Button onAction="#handelparticipation" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Participations" />
+
+            <Button onAction="#handleLogout" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-pref-width: 150;" text="🚪 Déconnexion" />
+        </VBox>
+    </left>
+
+    <!-- ✅ Centre avec formulaire et tableau dans la même ligne -->
+    <center>
+        <HBox alignment="CENTER_LEFT" spacing="30">
+
+            <!-- Formulaire -->
+            <VBox alignment="CENTER" prefHeight="500.0" prefWidth="480.0" spacing="15" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 30; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0, 2);">
+                <!-- Title Above the Form -->
+
+
+
+
+
+                <HBox alignment="CENTER" spacing="20">
+
+                    <Button onAction="#handleDelete" text="Supprimer" />
+                </HBox>
+            </VBox>
+
+            <!-- Tableau -->
+            <VBox spacing="15" style="-fx-padding: 20;">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="📋 Liste des Billets" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Label text="🔎 Rechercher :" />
+                    <TextField fx:id="tfSearch" onKeyReleased="#handleSearch" promptText="Numéro ou Mode de Paiement" />
+                </HBox>
+
+                <TableView fx:id="tableBillet" prefHeight="447.0" prefWidth="810.0" style="-fx-background-color: #ecf0f1; -fx-background-radius: 8; -fx-border-color: #bdc3c7; -fx-border-width: 1px;">
+                    <columns>
+                        <TableColumn fx:id="colId" text="ID" />
+                        <TableColumn fx:id="colEventId" text="ID Événement" />
+                        <TableColumn fx:id="colBuyerId" text="ID Acheteur" />
+                        <TableColumn fx:id="colNumero" text="Numéro" />
+                        <TableColumn fx:id="colDateEmission" text="Date d'émission" />
+                        <TableColumn fx:id="colModePaiement" text="Mode de Paiement" />
+                        <TableColumn fx:id="colType" text="Type" />
+                    </columns>
+                </TableView>
+            </VBox>
+        </HBox>
+    </center>
+
+</BorderPane>

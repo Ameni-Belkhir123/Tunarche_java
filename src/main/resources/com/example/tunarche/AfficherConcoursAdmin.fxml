@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<BorderPane prefHeight="600" prefWidth="1494.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TunArche.controllers.AdminConcoursController">
+
+    <!-- 🔝 Titre principal -->
+    <top>
+        <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-padding: 20;" text="🏆 Gestion des Concours" BorderPane.alignment="CENTER" />
+    </top>
+
+    <!-- 🔹 Menu latéral -->
+    <left>
+        <VBox spacing="15" style="-fx-background-color: #2c3e50; -fx-padding: 20;">
+
+            <!-- ✅ AVATAR -->
+            <MenuButton fx:id="avatarMenu"  text=""
+                        style="-fx-background-color: transparent; -fx-cursor: hand;"
+                        alignment="CENTER">
+                <graphic>
+                    <ImageView fitHeight="80" fitWidth="80" preserveRatio="true" smooth="true" style="-fx-clip: circle;">
+                        <image>
+                            <Image url="@images/avatar.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+                <items>
+                    <MenuItem fx:id="menuItemUser" text="" />
+
+
+                </items>
+            </MenuButton>
+
+            <!-- ✅ MENU LABEL -->
+            <Label style="-fx-font-size: 18px; -fx-text-fill: white; -fx-font-weight: bold;" text="🏠 Menu" />
+
+            <!-- ✅ MENU BOUTONS -->
+            <Button onAction="#handeluser" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="👥 Utilisateurs" />
+            <Button fx:id="eventbutton" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="📅 Événements" onAction="#handelevent"/>
+            <Button fx:id="btnBillets" onAction="#handebillet" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎫 Billets" />
+            <Button onAction="#handleCommantaire" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Commantaire" />
+            <Button onAction="#handlePublication" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Publication" />
+            <Button onAction="#handleformation" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Formations" />
+            <Button onAction="#handleevaluation" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Evaluation" />
+            <Button onAction="#handelconcours" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Concours" />
+            <Button onAction="#handelparticipation" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Participations" />
+
+            <Button onAction="#handleLogout" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-pref-width: 150;" text="🚪 Déconnexion" />
+        </VBox>
+    </left>
+
+    <!-- 📝 Formulaire de gestion des concours -->
+    <center>
+        <VBox spacing="10">
+            <padding>
+                <Insets bottom="20" left="20" right="20" top="20" />
+            </padding>
+
+            <GridPane hgap="10" vgap="10">
+                <Label text="Nom du concours:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <TextField fx:id="titreField" promptText="Entrez le nom du concours" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                <Label text="Date de début:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <DatePicker fx:id="dateDebutPicker" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <Label text="Date de fin:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <DatePicker fx:id="dateFinPicker" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                <Label text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <TextArea fx:id="descriptionField" prefRowCount="3" promptText="Description du concours..." GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            </GridPane>
+
+            <HBox spacing="10">
+                <Button onAction="#handleSave" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold;" text="Ajouter Concours" />
+                <Button fx:id="updateButton" onAction="#handleSave" text="Modifier" style="-fx-background-color: #f1c40f; -fx-text-fill: white;" />
+                <Button fx:id="deleteButton" onAction="#handleDelete" text="Supprimer" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" />
+            </HBox>
+        </VBox>
+    </center>
+
+    <!-- 📋 TableView des concours -->
+    <right>
+        <VBox spacing="10" style="-fx-padding: 10;">
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="📋 Liste des Concours" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Label text="🔎 Rechercher :" />
+                <TextField fx:id="searchField" onKeyReleased="#setupSearch" promptText="Nom ou description" />
+            </HBox>
+
+            <TableView fx:id="concoursTable" prefHeight="600" prefWidth="400">
+                <columns>
+                    <TableColumn fx:id="idCol" text="ID" />
+                    <TableColumn fx:id="titreCol" text="Nom" />
+                    <TableColumn fx:id="descriptionCol" text="Description" />
+                    <TableColumn fx:id="dateDebutCol" text="Date Début" />
+                    <TableColumn fx:id="dateFinCol" text="Date Fin" />
+                </columns>
+            </TableView>
+        </VBox>
+    </right>
+</BorderPane>

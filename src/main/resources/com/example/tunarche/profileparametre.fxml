@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<BorderPane fx:id="rootPane" prefHeight="600" prefWidth="1494.0"
+            xmlns="http://javafx.com/javafx/22.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="TunArche.controllers.Profileparametre">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: #2c3e50; -fx-padding: 20;">
+            <Region prefHeight="39.0" prefWidth="100.0" HBox.hgrow="ALWAYS" />
+
+            <!-- Boutons centrés -->
+            <Button fx:id="userbutton" onAction="#handelhome" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="home" textAlignment="CENTER" />
+            <Button fx:id="eventbutton" onAction="#handeleventt" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="📅 Événements"/>
+            <Button  onAction="#handelblog" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="📅 Blog"/>
+            <Button  onAction="#handelformation" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="📅 Formations"/>
+            <Button  onAction="#handelconcours" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="📅 Concours"/>
+            <Button  onAction="#handelblog" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="📅 Galerie"/>
+
+
+
+            <Region prefHeight="39.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+
+            <!-- Menu Avatar à droite -->
+            <MenuButton fx:id="avatarMenu1"
+                        style="-fx-background-color: transparent; -fx-cursor: hand;">
+                <graphic>
+                    <ImageView fitHeight="100" fitWidth="100" preserveRatio="true" smooth="true">
+                        <image>
+                            <Image url="@images/avatar.png"/>
+                        </image>
+                    </ImageView>
+
+                </graphic>
+                <items>
+                    <MenuItem fx:id="menuItemUser" text=""/>
+                    <MenuItem text=" mon cv" onAction="#handlecv"/>
+                    <MenuItem text="⚙️ Eventtime" onAction="#handecalander"/>
+                    <MenuItem text="⚙️ Paramètres" onAction="#handelprofile" />
+                    <MenuItem fx:id="btnLogout" onAction="#handleLogout" text="🚪 Déconnexion" />
+                </items>
+            </MenuButton>
+        </HBox>
+    </top>
+    <center>
+        <VBox alignment="CENTER" spacing="20" style="-fx-padding: 20;">
+            <Label text="Profil Utilisateur" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
+            <HBox alignment="CENTER" spacing="10">
+                <Label text="Nom :" style="-fx-font-size: 16px; -fx-text-fill: #2c3e50;" />
+                <TextField fx:id="nameField" prefWidth="200" />
+            </HBox>
+            <HBox alignment="CENTER" spacing="10">
+                <Label text="Prénom :" style="-fx-font-size: 16px; -fx-text-fill: #2c3e50;" />
+                <TextField fx:id="lastNameField" prefWidth="200" />
+            </HBox>
+            <HBox alignment="CENTER" spacing="10">
+                <Label text="Email :" style="-fx-font-size: 16px; -fx-text-fill: #2c3e50;" />
+                <TextField fx:id="emailField" prefWidth="200" />
+            </HBox>
+            <HBox alignment="CENTER" spacing="10">
+                <Label text="Téléphone :" style="-fx-font-size: 16px; -fx-text-fill: #2c3e50;" />
+                <TextField fx:id="phoneField" prefWidth="200" />
+            </HBox>
+            <Button fx:id="updateButton" onAction="#handleUpdate" text="Mettre à jour" style="-fx-background-color: #34495e; -fx-text-fill: white;" />
+            <Label fx:id="updateMessage" text="" style="-fx-font-size: 14px; -fx-text-fill: green;" visible="false" />
+        </VBox>
+    </center>
+
+</BorderPane>

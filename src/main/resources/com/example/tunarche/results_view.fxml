@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+
+<?import javafx.scene.shape.Rectangle?>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="TunArche.controllers.ResultsViewController"
+            prefHeight="600.0" prefWidth="800.0"
+            style="-fx-background-color: linear-gradient(to bottom right, #2c3e50, #4ca1af);">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: #2c3e50; -fx-padding: 20;">
+            <Button fx:id="btnBack" onAction="#handleBack"
+                    style="-fx-background-color: #e74c3c; -fx-text-fill: white;"
+                    text="← Retour" />
+
+            <Label text="Résultats du Concours"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
+
+            <Region HBox.hgrow="ALWAYS" />
+
+            <Label fx:id="concoursNameLabel"
+                   style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #3498db;" />
+        </HBox>
+    </top>
+
+    <center>
+        <StackPane>
+            <!-- Background Card -->
+            <Rectangle fill="WHITE" width="700" height="500" arcWidth="20" arcHeight="20">
+                <effect>
+                    <javafx.scene.effect.DropShadow color="#00000040" radius="10" spread="0.1" />
+                </effect>
+            </Rectangle>
+
+            <VBox alignment="TOP_CENTER" spacing="20" maxWidth="650">
+                <padding>
+                    <Insets top="30" right="30" bottom="30" left="30" />
+                </padding>
+
+                <!-- Winner Section -->
+                <Label text="🏆 GAGNANT DU CONCOURS"
+                       style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
+
+                <HBox spacing="30" alignment="CENTER">
+                    <!-- Left Side: Winner Info -->
+                    <VBox spacing="20" alignment="CENTER" minWidth="300">
+                        <!-- Winner Image -->
+                        <ImageView fx:id="winnerImageView" fitHeight="200" fitWidth="200" preserveRatio="true">
+                            <effect>
+                                <javafx.scene.effect.DropShadow color="#00000040" radius="5" />
+                            </effect>
+                        </ImageView>
+
+                        <!-- Winner Info -->
+                        <VBox spacing="5" style="-fx-background-color: #f8f9fa; -fx-padding: 15; -fx-background-radius: 8;">
+                            <Label text="Artiste:" style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;" />
+                            <Label fx:id="artistNameLabel" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
+
+                            <Label text="Email:" style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;" />
+                            <Label fx:id="artistEmailLabel" style="-fx-font-size: 16px; -fx-text-fill: #2c3e50;" />
+
+                            <Label text="Nombre de votes:" style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;" />
+                            <Label fx:id="votesCountLabel" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #e74c3c;" />
+
+                            <Label text="Date de participation:" style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;" />
+                            <Label fx:id="participationDateLabel" style="-fx-font-size: 16px; -fx-text-fill: #2c3e50;" />
+                        </VBox>
+                    </VBox>
+
+                    <!-- Vertical Separator -->
+                    <Separator orientation="VERTICAL" />
+
+                    <!-- Right Side: QR Code -->
+                    <VBox spacing="15" alignment="CENTER">
+                        <Label text="Scanner pour plus d'infos" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
+
+                        <ImageView fx:id="qrCodeImageView" fitHeight="200" fitWidth="200">
+                            <effect>
+                                <javafx.scene.effect.DropShadow color="#00000040" radius="3" />
+                            </effect>
+                        </ImageView>
+
+                        <Label text="ou" style="-fx-font-style: italic; -fx-text-fill: #7f8c8d;" />
+
+                        <Button fx:id="btnShareResults" onAction="#handleShareResults"
+                                style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 20;"
+                                text="Partager les résultats" />
+                    </VBox>
+                </HBox>
+
+                <!-- Top Participants Section -->
+                <Label text="Top Participants"
+                       style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-padding: 10 0 0 0;" />
+
+                <TableView fx:id="topParticipantsTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="rankColumn" text="Rang" prefWidth="50" />
+                        <TableColumn fx:id="nameColumn" text="Nom" prefWidth="200" />
+                        <TableColumn fx:id="votesColumn" text="Votes" prefWidth="100" />
+                        <TableColumn fx:id="dateColumn" text="Date" prefWidth="150" />
+                    </columns>
+                </TableView>
+            </VBox>
+        </StackPane>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER" style="-fx-padding: 15px;">
+            <Label text="© TunArche - Concours Artistiques" style="-fx-text-fill: white; -fx-font-size: 12px;" />
+        </HBox>
+    </bottom>
+</BorderPane>

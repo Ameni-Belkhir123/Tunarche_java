@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx"
+            fx:controller="TunArche.controllers.ChatbotController"
+            prefWidth="500" prefHeight="400">
+
+    <top>
+        <Label text="🤖 Assistant Chatbot"
+               style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-padding: 10;" />
+    </top>
+
+    <center>
+        <ScrollPane fx:id="chatScrollPane" fitToWidth="true">
+            <VBox fx:id="chatBox" spacing="10" style="-fx-padding: 10;" />
+        </ScrollPane>
+    </center>
+
+    <bottom>
+        <HBox spacing="10" style="-fx-padding: 10;">
+            <TextField fx:id="userInput" promptText="Écris un message..." HBox.hgrow="ALWAYS" />
+            <Button text="Envoyer" onAction="#handleSend" />
+        </HBox>
+    </bottom>
+
+</BorderPane>

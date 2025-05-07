@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+        <?import javafx.scene.control.*?>
+        <?import javafx.scene.layout.*?>
+        <?import javafx.geometry.*?>
+
+        <VBox xmlns:fx="http://javafx.com/fxml"
+              fx:controller="TunArche.controllers.EnterResetCodeController"
+              alignment="CENTER" spacing="15" >
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+            <Label text="Entrez le code que vous avez reçu par email"/>
+            <TextField fx:id="tfCode" promptText="Code à 6 chiffres" maxWidth="200"/>
+
+            <Button text="Valider le code" onAction="#handleCodeValidation"/>
+            <Label fx:id="lblMessage" visible="false" style="-fx-text-fill: red;" wrapText="true"/>
+        </VBox>

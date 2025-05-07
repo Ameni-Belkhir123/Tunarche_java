@@ -1,0 +1,58 @@
+/* Style de base */
+.root {
+    -fx-font-family: "Arial";
+}
+
+/* Bouton participer */
+.participer-button {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+}
+
+.participer-button:disabled {
+    -fx-background-color: #cccccc;
+    -fx-text-fill: #666666;
+}
+
+/* Étoiles d'évaluation */
+.star-label {
+    -fx-font-size: 30px;
+    -fx-text-fill: gray;
+    -fx-cursor: hand;
+}
+
+.star-label:hover, .star-label.filled {
+    -fx-text-fill: #FFD700; /* Or clair */
+}
+
+/* Statut formation */
+.statut-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.statut-label.en-cours {
+    -fx-text-fill: #4CAF50; /* Vert */
+}
+
+.statut-label.a-venir {
+    -fx-text-fill: #2196F3; /* Bleu */
+}
+
+.statut-label.terminee {
+    -fx-text-fill: #f44336; /* Rouge */
+}
+
+/* Bouton envoyer */
+.submit-button {
+    -fx-font-weight: bold;
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+}
+
+/* Labels de section */
+.section-label {
+    -fx-font-weight: bold;
+}

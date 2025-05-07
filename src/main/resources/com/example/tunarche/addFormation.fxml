@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<BorderPane prefHeight="600" prefWidth="1494.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="TunArche.controllers.formationController">
+
+    <!-- ✅ Barre du haut -->
+    <top>
+        <Label text="🎓 Gestion des Formations" BorderPane.alignment="CENTER"
+               style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-padding: 20; -fx-text-fill: #2c3e50;"/>
+    </top>
+
+    <!-- ✅ Barre latérale gauche -->
+    <left>
+        <VBox spacing="15" style="-fx-background-color: #2c3e50; -fx-padding: 20;">
+
+        <!-- ✅ AVATAR -->
+        <MenuButton fx:id="avatarMenu"  text=""
+                    style="-fx-background-color: transparent; -fx-cursor: hand;"
+                    alignment="CENTER">
+            <graphic>
+                <ImageView fitHeight="80" fitWidth="80" preserveRatio="true" smooth="true" style="-fx-clip: circle;">
+                    <image>
+                        <Image url="@images/avatar.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+            <items>
+                <MenuItem fx:id="menuItemUser" text="" />
+
+
+            </items>
+        </MenuButton>
+
+        <!-- ✅ MENU LABEL -->
+        <Label style="-fx-font-size: 18px; -fx-text-fill: white; -fx-font-weight: bold;" text="🏠 Menu" />
+
+        <!-- ✅ MENU BOUTONS -->
+            <Button onAction="#handeluser" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="👥 Utilisateurs" />
+        <Button fx:id="eventbutton" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="📅 Événements" onAction="#handelevent"/>
+        <Button fx:id="btnBillets" onAction="#handebillet" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎫 Billets" />
+        <Button onAction="#handleCommantaire" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Commantaire" />
+        <Button onAction="#handlePublication" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Publication" />
+        <Button onAction="#handleformation" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Formations" />
+            <Button onAction="#handleevaluation" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Evaluation" />
+            <Button onAction="#handelconcours" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Concours" />
+            <Button onAction="#handelparticipation" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Participations" />
+
+            <Button onAction="#handleLogout" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-pref-width: 150;" text="🚪 Déconnexion" />
+    </VBox>
+    </left>
+
+    <!-- ✅ Partie centrale -->
+    <center>
+        <VBox spacing="15" style="-fx-padding: 20; -fx-background-color: #f9f9f9;">
+            <GridPane hgap="10" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                </rowConstraints>
+
+                <Label text="Titre:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <HBox spacing="5" GridPane.columnIndex="1" GridPane.columnSpan="3">
+                    <TextField fx:id="titreid" prefHeight="26.0" prefWidth="189.0" promptText="Titre de la formation"/>
+                    <Button text="🧠 Générer Description" onAction="#generateDescription"
+                            style="-fx-background-color: #8e44ad; -fx-text-fill: white;"/>
+                </HBox>
+                <Label text="Description:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextArea fx:id="descriptionid" promptText="Description" wrapText="true" prefRowCount="2"
+                          GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
+
+                <Label text="Date début:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <DatePicker fx:id="datedebid" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <Label text="Date fin:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <DatePicker fx:id="datefinid" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                <Label text="Lien:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <TextField fx:id="linkid" promptText="https://" GridPane.rowIndex="4" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
+
+                <Label text="Places:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                <TextField fx:id="nbrplacesid" promptText="Nombre de places" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+                <Label text="Image:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                <HBox spacing="5" GridPane.rowIndex="6" GridPane.columnIndex="1" GridPane.columnSpan="3">
+                    <Button fx:id="imgselect" text="Sélectionner" onAction="#selectImage"/>
+                    <TextField fx:id="imgnamesho" editable="false" prefWidth="200" style="-fx-background-color: #f0f0f0;"/>
+                </HBox>
+            </GridPane>
+
+            <HBox alignment="CENTER" spacing="10">
+                <Button text="Ajouter" onAction="#saveFormation" style="-fx-background-color: #2ecc71; -fx-text-fill: white;"/>
+                <Button fx:id="btnUpdate" text="Modifier" disable="true" onAction="#handleUpdate" style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+                <Button fx:id="btnDelete" text="Supprimer" disable="true" onAction="#handleDelete" style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+                <Button text="Chatbot" onAction="#openChatbot" style="-fx-background-color: #9b59b6; -fx-text-fill: white;"/>
+            </HBox>
+        </VBox>
+    </center>
+
+    <!-- ✅ Liste des formations -->
+    <right>
+        <VBox spacing="10" style="-fx-padding: 10; -fx-background-color: #ecf0f1;">
+            <Label text="📋 Liste des Formations" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+            <TableView fx:id="tableFormations" prefHeight="500" prefWidth="450">
+                <columns>
+                    <TableColumn fx:id="colId" text="ID" prefWidth="40"/>
+                    <TableColumn fx:id="colTitre" text="Titre" prefWidth="120"/>
+                    <TableColumn fx:id="colDateDebut" text="Début" prefWidth="80"/>
+                    <TableColumn fx:id="colDateFin" text="Fin" prefWidth="80"/>
+                    <TableColumn fx:id="colPlaces" text="Places" prefWidth="50"/>
+                    <TableColumn fx:id="colImage" text="Image" prefWidth="80"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </right>
+
+</BorderPane>

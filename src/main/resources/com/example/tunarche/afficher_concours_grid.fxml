@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="TunArche.controllers.AfficherConcoursUtilisateur"
+            prefHeight="600" prefWidth="1494.0">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: #2c3e50; -fx-padding: 20;">
+            <Region prefHeight="39.0" prefWidth="100.0" HBox.hgrow="ALWAYS" />
+
+            <!-- Boutons centrés -->
+            <Button fx:id="userbutton" onAction="#handelhome" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="home" textAlignment="CENTER" />
+            <Button fx:id="eventbutton" onAction="#handeleventt" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="📅 Événements"/>
+            <Button  onAction="#handelblog" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="📅 Blog"/>
+            <Button  onAction="#handelformation" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="📅 Formations"/>
+            <Button  onAction="#handelconcours" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="📅 Concours"/>
+            <Button  onAction="#handelblog" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="📅 Galerie"/>
+
+
+
+
+
+            <Region prefHeight="39.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+
+            <!-- Menu Avatar à droite -->
+            <MenuButton fx:id="avatarMenu1"
+                        style="-fx-background-color: transparent; -fx-cursor: hand;">
+                <graphic>
+                    <ImageView fitHeight="100" fitWidth="100" preserveRatio="true" smooth="true">
+                        <image>
+                            <Image url="@images/avatar.png"/>
+                        </image>
+                    </ImageView>
+
+                </graphic>
+                <items>
+                    <MenuItem fx:id="menuItemUser" text=""/>
+                    <MenuItem text=" mon cv" onAction="#handlecv"/>
+                    <MenuItem text="⚙️ Eventtime" onAction="#handecalander"/>
+                    <MenuItem text="⚙️ Paramètres" onAction="#handelprofile"/>
+                    <MenuItem fx:id="btnLogout" onAction="#handleLogout" text="🚪 Déconnexion" />
+                </items>
+            </MenuButton>
+        </HBox>
+    </top>
+    <center>
+        <StackPane fx:id="mainContent">
+
+            <!-- Vue liste des concours - visible pour tous les rôles -->
+            <VBox spacing="20.0" alignment="TOP_CENTER" fx:id="homeView"
+                  style="-fx-padding: 20; -fx-background-color: #f4f7f6; -fx-border-radius: 10px;">
+                <Label text="Liste des Concours"
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #34495e;" />
+                <TextField fx:id="searchField" promptText="Rechercher un concours..."
+                           style="-fx-padding: 10px; -fx-background-color: #ecf0f1; -fx-border-radius: 5px;" />
+
+
+
+                <FlowPane fx:id="concoursContainer" hgap="20" vgap="20" alignment="CENTER"
+                          style="-fx-padding: 10; -fx-background-color: transparent;">
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
+                    </padding>
+                </FlowPane>
+
+            </VBox>
+
+            <!-- Vue détails concours - visible UNIQUEMENT pour les artistes -->
+            <VBox fx:id="detailsPane" spacing="20.0" alignment="TOP_CENTER"
+                  style="-fx-background-color: #ffffff; -fx-padding: 30; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-effect: dropshadow(gaussian, #7f8c8d, 10, 0.5, 0, 0);"
+                  visible="false" managed="false">
+
+                <!-- En-tête avec titre -->
+                <Label text="Détails du Concours"
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #34495e;" />
+
+                <!-- Détails du concours -->
+                <VBox spacing="10" style="-fx-background-color: #f8f9fa; -fx-padding: 15; -fx-background-radius: 8;">
+                    <Label text="Titre:" style="-fx-font-weight: bold; -fx-font-size: 16px;" />
+                    <Label fx:id="titreLabel" wrapText="true" style="-fx-font-size: 14px; -fx-text-fill: #2c3e50;" />
+
+                    <Label text="Description:" style="-fx-font-weight: bold; -fx-font-size: 16px;" />
+                    <Label fx:id="descriptionLabel" wrapText="true" style="-fx-font-size: 14px; -fx-text-fill: #2c3e50;" />
+
+                    <Label text="Période:" style="-fx-font-weight: bold; -fx-font-size: 16px;" />
+                    <Label fx:id="datesLabel" style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;" />
+                </VBox>
+
+                <!-- Section artiste avec bouton Participer - uniquement visible pour les artistes -->
+                <VBox fx:id="artistePane" spacing="10" alignment="CENTER">
+                    <Button text="Participer"
+                            fx:id="participerButton"
+                            onAction="#handleParticiper"
+                            style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 5px; -fx-font-size: 16px;" />
+                </VBox>
+
+                <!-- Bouton Retour -->
+                <HBox spacing="20" alignment="CENTER" style="-fx-padding: 10;">
+                    <Button text="Retour"
+                            fx:id="retourButton"
+                            onAction="#handleRetour"
+                            style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 5px; -fx-font-size: 14px;" />
+                </HBox>
+            </VBox>
+
+            <!-- Vue des participations - visible UNIQUEMENT pour les utilisateurs -->
+            <VBox fx:id="utilisateurPane" spacing="20.0" alignment="TOP_CENTER"
+                  style="-fx-background-color: #ffffff; -fx-padding: 30; -fx-border-radius: 10px; -fx-background-radius: 10px;"
+                  visible="false" managed="false">
+
+                <!-- En-tête avec titre -->
+                <HBox alignment="CENTER_LEFT" spacing="15">
+                    <Button text="Retour"
+                            fx:id="retourButtonUser"
+                            onAction="#handleRetour"
+                            style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-padding: 8 15; -fx-background-radius: 5px;" />
+
+                    <Label text="Œuvres en compétition"
+                           style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #34495e;" />
+                </HBox>
+
+                <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                    <FlowPane fx:id="participationContainer" hgap="20" vgap="20" alignment="CENTER"
+                              style="-fx-padding: 10; -fx-background-color: transparent;"/>
+                </ScrollPane>
+            </VBox>
+
+        </StackPane>
+    </center>
+</BorderPane>

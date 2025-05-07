@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<HBox xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="TunArche.controllers.EventCardController"
+      spacing="15" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10; -fx-border-color: lightgray; -fx-border-radius: 10;">
+
+    <ImageView fx:id="eventImage" fitWidth="100" fitHeight="100" preserveRatio="true"/>
+
+    <VBox spacing="5">
+        <Label fx:id="eventName" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+        <Label fx:id="eventPlace"/>
+        <Label fx:id="eventDate"/>
+        <Label fx:id="eventPrice"/>
+    </VBox>
+</HBox>

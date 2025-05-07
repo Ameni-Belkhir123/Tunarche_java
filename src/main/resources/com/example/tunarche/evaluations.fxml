@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.chart.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="TunArche.controllers.EvaluationController" prefHeight="600" prefWidth="1494.0">
+
+    <!-- Barre latérale gauche -->
+    <left>
+        <VBox spacing="15" style="-fx-background-color: #2c3e50; -fx-padding: 20;">
+
+            <!-- ✅ AVATAR -->
+            <MenuButton fx:id="avatarMenu"  text=""
+                        style="-fx-background-color: transparent; -fx-cursor: hand;"
+                        alignment="CENTER">
+                <graphic>
+                    <ImageView fitHeight="80" fitWidth="80" preserveRatio="true" smooth="true" style="-fx-clip: circle;">
+                        <image>
+                            <Image url="@images/avatar.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+                <items>
+                    <MenuItem fx:id="menuItemUser" text="" />
+
+
+                </items>
+            </MenuButton>
+
+            <!-- ✅ MENU BOUTONS -->
+            <Button onAction="#handeluser" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="👥 Utilisateurs" />
+            <Button fx:id="eventbutton" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="📅 Événements" onAction="#handelevent"/>
+            <Button fx:id="btnBillets" onAction="#handebillet" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎫 Billets" />
+            <Button onAction="#handleCommantaire" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Commantaire" />
+            <Button onAction="#handlePublication" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Publication" />
+            <Button onAction="#handleformation" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Formations" />
+            <Button onAction="#handleevaluation" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Evaluation" />
+            <Button onAction="#handelconcours" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Concours" />
+            <Button onAction="#handelparticipation" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-pref-width: 150;" text="🎓 Participations" />
+
+            <Button onAction="#handleLogout" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-pref-width: 150;" text="🚪 Déconnexion" />
+        </VBox>
+    </left>
+
+    <!-- Contenu principal à droite -->
+    <center>
+        <VBox spacing="10" alignment="TOP_LEFT" prefWidth="500">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <!-- ComboBox pour sélectionner une formation -->
+            <ComboBox fx:id="formationComboBox" prefWidth="300" promptText="Choisir une formation"/>
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="averageLabel" text="0.0" style="-fx-font-size: 48px; -fx-font-weight: bold;" />
+                <VBox spacing="5">
+                    <HBox spacing="2">
+                        <Label text="★" style="-fx-text-fill: #388e3c; -fx-font-size: 16px;" />
+                        <Label text="★" style="-fx-text-fill: #388e3c; -fx-font-size: 16px;" />
+                        <Label text="★" style="-fx-text-fill: #388e3c; -fx-font-size: 16px;" />
+                        <Label text="★" style="-fx-text-fill: #388e3c; -fx-font-size: 16px;" />
+                        <Label text="★" style="-fx-text-fill: #388e3c; -fx-font-size: 16px;" />
+                    </HBox>
+                    <Label fx:id="totalReviewsLabel" text="0 avis" style="-fx-font-size: 12px; -fx-text-fill: grey;" />
+                </VBox>
+            </HBox>
+            <!-- BarChart pour la répartition des notes -->
+            <BarChart fx:id="barChart" prefWidth="600" prefHeight="400">
+                <xAxis>
+                    <CategoryAxis fx:id="xAxis" label="Note"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis fx:id="yAxis" label="Nombre d'avis"/>
+                </yAxis>
+            </BarChart>
+
+
+            <!-- Répartition des notes -->
+            <VBox spacing="5">
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="5" />
+                    <ProgressBar fx:id="progress5" prefWidth="300" style="-fx-accent: #388e3c;" />
+                </HBox>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="4" />
+                    <ProgressBar fx:id="progress4" prefWidth="300" style="-fx-accent: #388e3c;" />
+                </HBox>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="3" />
+                    <ProgressBar fx:id="progress3" prefWidth="300" style="-fx-accent: #388e3c;" />
+                </HBox>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="2" />
+                    <ProgressBar fx:id="progress2" prefWidth="300" style="-fx-accent: #388e3c;" />
+                </HBox>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="1" />
+                    <ProgressBar fx:id="progress1" prefWidth="300" style="-fx-accent: #388e3c;" />
+                </HBox>
+            </VBox>
+
+            <!-- Liste des commentaires -->
+            <Label text="Commentaires :" style="-fx-font-weight: bold; -fx-font-size: 14px;" />
+            <ListView fx:id="commentListView" prefHeight="200" prefWidth="400"/>
+        </VBox>
+    </center>
+</BorderPane>

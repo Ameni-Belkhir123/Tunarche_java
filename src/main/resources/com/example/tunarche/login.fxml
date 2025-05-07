@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<?import java.net.URL?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.paint.*?>
+
+<?import javafx.scene.image.ImageView?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="TunArche.controllers.LoginController"
+            prefWidth="400" prefHeight="340">
+    <stylesheets>
+        <URL value="@css/artTheme.css" />
+    </stylesheets>
+
+    <center>
+        <VBox alignment="CENTER" spacing="15">
+            <padding>
+                <Insets top="30" right="30" bottom="30" left="30"/>
+            </padding>
+
+            <Label text="🔐 Connexion" styleClass="title"/>
+
+            <TextField fx:id="tfEmail" promptText="Email" prefWidth="250" styleClass="artistic-field"/>
+
+            <PasswordField fx:id="pfPassword" promptText="Mot de passe" prefWidth="250" styleClass="artistic-field"/>
+            <ImageView fx:id="captchaImageView" fitHeight="40" fitWidth="120"/>
+            <TextField fx:id="tfCaptcha" promptText="Entrez le captcha"/>
+            <Button text="↻" onAction="#refreshCaptcha"/>
+
+            <Button text="Se connecter" onAction="#handleLogin" prefWidth="180" styleClass="artistic-button"/>
+
+            <Hyperlink text="Pas de compte? S'inscrire" onAction="#handleRegister" styleClass="artistic-link"/>
+            <Hyperlink text="Mot de passe oublié?" onAction="#handleForgotPassword" prefWidth="180" styleClass="artistic-link"/>
+
+
+            <Label fx:id="lblError" styleClass="error-label" visible="false" wrapText="true" maxWidth="250"/>
+        </VBox>
+    </center>
+</BorderPane>

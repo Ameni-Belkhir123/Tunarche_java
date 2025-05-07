@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<?import java.net.URL?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="TunArche.controllers.Eventfront"
+            prefHeight="600" prefWidth="1494.0"
+            style="-fx-background-color: #ecf0f1;">
+    <stylesheets>
+        <URL value="@css/style.css" />
+    </stylesheets>
+
+    <!-- TOP Navigation Bar -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: #2c3e50; -fx-padding: 20;">
+            <Region prefHeight="39.0" prefWidth="100.0" HBox.hgrow="ALWAYS" />
+
+            <!-- Boutons centrés -->
+            <Button fx:id="userbutton" onAction="#handelhome" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="home" textAlignment="CENTER" />
+            <Button fx:id="eventbutton" onAction="#handeleventt" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="📅 Événements"/>
+            <Button  onAction="#handelblog" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="📅 Blog"/>
+            <Button  onAction="#handelformation" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="📅 Formations"/>
+            <Button  onAction="#handelconcours" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="📅 Concours"/>
+            <Button  onAction="#handelblog" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="📅 Galerie"/>
+
+
+
+            <Region prefHeight="39.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+
+            <!-- Menu Avatar à droite -->
+            <MenuButton fx:id="avatarMenu1"
+                        style="-fx-background-color: transparent; -fx-cursor: hand;">
+                <graphic>
+                    <ImageView fitHeight="100" fitWidth="100" preserveRatio="true" smooth="true">
+                        <image>
+                            <Image url="@images/avatar.png"/>
+                        </image>
+                    </ImageView>
+
+                </graphic>
+                <items>
+                    <MenuItem fx:id="menuItemUser" text=""/>
+                    <MenuItem text=" mon cv" onAction="#handlecv"/>
+                    <MenuItem text="⚙️ Eventtime" onAction="#handecalander"/>
+                    <MenuItem text="⚙️ Paramètres" onAction="#handelprofile"/>
+                    <MenuItem fx:id="btnLogout" onAction="#handleLogout" text="🚪 Déconnexion" />
+                </items>
+            </MenuButton>
+        </HBox>
+    </top>
+
+    <!-- CENTER Scrollable Event List -->
+    <center>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" style="-fx-background: transparent;">
+            <content>
+                <VBox fx:id="eventContainer"
+                      spacing="20"
+                      styleClass="event-background">
+                    <!-- Tu peux enlever le style inline si tu veux tout dans le CSS -->
+
+                <padding>
+                        <Insets top="30" right="30" bottom="30" left="30"/>
+                    </padding>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+</BorderPane>

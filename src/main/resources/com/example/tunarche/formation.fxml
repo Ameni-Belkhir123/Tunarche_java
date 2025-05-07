@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="TunArche.controllers.showFormationController" prefHeight="600" prefWidth="1494.0">
+
+    <top>
+        <VBox spacing="10">
+            <!-- Barre de navigation -->
+            <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: #2c3e50; -fx-padding: 20;">
+                <Region prefHeight="39.0" prefWidth="100.0" HBox.hgrow="ALWAYS" />
+
+                <!-- Boutons centrés -->
+                <Button fx:id="userbutton" onAction="#handelhome" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="home" textAlignment="CENTER" />
+                <Button fx:id="eventbutton" onAction="#handeleventt" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="📅 Événements"/>
+                <Button  onAction="#handelblog" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="📅 Blog"/>
+                <Button  onAction="#handelformation" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="📅 Formations"/>
+                <Button  onAction="#handelconcours" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="📅 Concours"/>
+                <Button  onAction="#handelblog" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="📅 Galerie"/>
+
+
+
+                <Region prefHeight="39.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+
+                <!-- Menu Avatar à droite -->
+                <MenuButton fx:id="avatarMenu1"
+                            style="-fx-background-color: transparent; -fx-cursor: hand;">
+                    <graphic>
+                        <ImageView fitHeight="100" fitWidth="100" preserveRatio="true" smooth="true">
+                            <image>
+                                <Image url="@images/avatar.png"/>
+                            </image>
+                        </ImageView>
+
+                    </graphic>
+                    <items>
+                        <MenuItem fx:id="menuItemUser" text=""/>
+                        <MenuItem text=" mon cv" onAction="#handlecv"/>
+                        <MenuItem text="⚙️ Eventtime" onAction="#handecalander"/>
+                        <MenuItem text="⚙️ Paramètres" onAction="#handelprofile"/>
+                        <MenuItem fx:id="btnLogout" onAction="#handleLogout" text="🚪 Déconnexion" />
+                    </items>
+                </MenuButton>
+            </HBox>
+
+            <!-- Barre de recherche -->
+            <VBox spacing="10" alignment="CENTER">
+                <padding>
+                    <Insets top="10" right="20" bottom="10" left="20"/>
+                </padding>
+                <TextField fx:id="searchField" promptText="Rechercher une formation..." maxWidth="300"/>
+            </VBox>
+        </VBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true">
+            <VBox fx:id="rootVBox" spacing="20" alignment="CENTER">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+                <GridPane fx:id="formationGrid" hgap="20" vgap="20">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+                </GridPane>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <bottom>
+        <Pagination fx:id="pagination" maxPageIndicatorCount="10"
+                    style="-fx-border-color: #dfe6e9; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding:5;"/>
+    </bottom>
+</BorderPane>

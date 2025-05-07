@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<?import java.net.URL?>
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="TunArche.controllers.Usercalenderevent"
+            prefHeight="600" prefWidth="1494.0">
+    <stylesheets>
+        <URL value="@css/style.css" />
+    </stylesheets>
+
+    <!-- TOP Header -->
+    <top>
+
+        <VBox spacing="10">
+            <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: #2c3e50; -fx-padding: 20;">
+                <Region prefHeight="39.0" prefWidth="100.0" HBox.hgrow="ALWAYS" />
+
+                <!-- Boutons centrés -->
+                <Button fx:id="userbutton" onAction="#handelhome" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="home" textAlignment="CENTER" />
+                <Button fx:id="eventbutton" onAction="#handeleventt" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="📅 Événements"/>
+                <Button  onAction="#handelblog" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="📅 Blog"/>
+                <Button  onAction="#handelformation" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="📅 Formations"/>
+                <Button  onAction="#handelconcours" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="📅 Concours"/>
+                <Button  onAction="#handelblog" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="📅 Galerie"/>
+
+
+
+                <Region prefHeight="39.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+
+                <!-- Menu Avatar à droite -->
+                <MenuButton fx:id="avatarMenu1"
+                            style="-fx-background-color: transparent; -fx-cursor: hand;">
+                    <graphic>
+                        <ImageView fitHeight="100" fitWidth="100" preserveRatio="true" smooth="true">
+                            <image>
+                                <Image url="@images/avatar.png"/>
+                            </image>
+                        </ImageView>
+
+                    </graphic>
+                    <items>
+                        <MenuItem fx:id="menuItemUser" text=""/>
+                        <MenuItem text=" mon cv" onAction="#handlecv"/>
+                        <MenuItem text="⚙️ Eventtime" onAction="#handecalander"/>
+                        <MenuItem text="⚙️ Paramètres" onAction="#handelprofile"/>
+                        <MenuItem fx:id="btnLogout" onAction="#handleLogout" text="🚪 Déconnexion" />
+                    </items>
+                </MenuButton>
+            </HBox>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+            <Button styleClass="menu-button">
+                <graphic>
+                    <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
+                        <image>
+                            <Image url="@images/image(1).png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Label text="Calendar" styleClass="title" />
+            <Button text="Today" onAction="#showToday" styleClass="today-button" />
+            <HBox spacing="5" alignment="CENTER">
+                <Button text="◄" onAction="#showPreviousMonth" styleClass="nav-button" />
+                <Label fx:id="monthLabel" styleClass="month-label" />
+                <Button text="►" onAction="#showNextMonth" styleClass="nav-button" />
+            </HBox>
+            <Region HBox.hgrow="ALWAYS" />
+            <ToggleButton text="Day" styleClass="view-button" onAction="#switchToDayView" />
+            <ToggleButton text="Week" styleClass="view-button" onAction="#switchToWeekView" />
+            <ToggleButton text="Month" styleClass="view-button" selected="true" onAction="#switchToMonthView" />
+        </HBox>
+        </VBox>
+    </top>
+
+    <!-- LEFT Sidebar -->
+    <left>
+        <VBox styleClass="sidebar" prefWidth="200.0" spacing="10" alignment="TOP_CENTER">
+            <Label fx:id="miniMonthLabel" styleClass="mini-month-label" />
+            <!-- Mini-Calendar Weekday Labels -->
+            <GridPane styleClass="mini-weekday-grid" hgap="2" vgap="2" alignment="CENTER">
+                <Label text="M" styleClass="mini-weekday-label" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <Label text="T" styleClass="mini-weekday-label" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Label text="W" styleClass="mini-weekday-label" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                <Label text="T" styleClass="mini-weekday-label" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                <Label text="F" styleClass="mini-weekday-label" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+                <Label text="S" styleClass="mini-weekday-label" GridPane.columnIndex="5" GridPane.rowIndex="0" />
+                <Label text="S" styleClass="mini-weekday-label" GridPane.columnIndex="6" GridPane.rowIndex="0" />
+            </GridPane>
+            <GridPane fx:id="miniCalendarGrid" styleClass="mini-calendar-grid" hgap="2" vgap="2">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="14.28" />
+                    <ColumnConstraints percentWidth="14.28" />
+                    <ColumnConstraints percentWidth="14.28" />
+                    <ColumnConstraints percentWidth="14.28" />
+                    <ColumnConstraints percentWidth="14.28" />
+                    <ColumnConstraints percentWidth="14.28" />
+                    <ColumnConstraints percentWidth="14.28" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints percentHeight="16.66" />
+                    <RowConstraints percentHeight="16.66" />
+                    <RowConstraints percentHeight="16.66" />
+                    <RowConstraints percentHeight="16.66" />
+                    <RowConstraints percentHeight="16.66" />
+                    <RowConstraints percentHeight="16.66" />
+                </rowConstraints>
+            </GridPane>
+
+        </VBox>
+    </left>
+
+    <!-- CENTER Main Calendar -->
+    <center>
+        <VBox styleClass="calendar-container" alignment="CENTER" spacing="5" VBox.vgrow="ALWAYS">
+            <!-- Weekday Labels -->
+            <GridPane styleClass="weekday-grid"     hgap="0" vgap="0" alignment="CENTER">
+                <Label text="Mon" styleClass="weekday-label" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <Label text="Tue" styleClass="weekday-label" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Label text="Wed" styleClass="weekday-label" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                <Label text="Thu" styleClass="weekday-label" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                <Label text="Fri" styleClass="weekday-label" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+                <Label text="Sat" styleClass="weekday-label" GridPane.columnIndex="5" GridPane.rowIndex="0" />
+                <Label text="Sun" styleClass="weekday-label" GridPane.columnIndex="6" GridPane.rowIndex="0" />
+            </GridPane>
+
+            <!-- Main Calendar Grid -->
+            <GridPane fx:id="calendarGrid" hgap="0" vgap="0" alignment="CENTER" styleClass="calendar-grid" GridPane.vgrow="ALWAYS">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="14.28" />
+                    <ColumnConstraints percentWidth="14.28" />
+                    <ColumnConstraints percentWidth="14.28" />
+                    <ColumnConstraints percentWidth="14.28" />
+                    <ColumnConstraints percentWidth="14.28" />
+                    <ColumnConstraints percentWidth="14.28" />
+                    <ColumnConstraints percentWidth="14.28" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints percentHeight="16.66" vgrow="ALWAYS" />
+                    <RowConstraints percentHeight="16.66" vgrow="ALWAYS" />
+                    <RowConstraints percentHeight="16.66" vgrow="ALWAYS" />
+                    <RowConstraints percentHeight="16.66" vgrow="ALWAYS" />
+                    <RowConstraints percentHeight="16.66" vgrow="ALWAYS" />
+                    <RowConstraints percentHeight="16.66" vgrow="ALWAYS" />
+                </rowConstraints>
+            </GridPane>
+        </VBox>
+    </center>
+</BorderPane>
